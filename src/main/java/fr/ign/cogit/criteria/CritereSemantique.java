@@ -59,13 +59,13 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 	@Override
 	public double[] getMasse() throws Exception {
 
-		String valTypeRef = featureRef.getAttribute(attrSemantiqueNameRef).toString();
-		String valTypeComp = featureComp.getAttribute(attrSemantiqueNameComp).toString();
-
-		((DistanceAbstractSemantique) distance).setType(valTypeRef, valTypeComp);
+		String valTypeRef = (featureRef.getAttribute(attrSemantiqueNameRef).toString());
+		String valTypeComp = (featureComp.getAttribute(attrSemantiqueNameComp).toString());
+		
+		((DistanceAbstractSemantique) distance).setType(valTypeComp, valTypeRef);
 		double distNorm = distance.getDistance();
-
 		double[] tableau = new double[3];
+		
 		if (distNorm < seuil) {
 			tableau[0] = (-0.4 / seuil) * distNorm + 0.5;
 			tableau[1] = (0.8 / seuil) * distNorm;
@@ -75,6 +75,12 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 			tableau[1] = 0.8;
 			tableau[2] = 0.1;
 		}
+		// Si concept n'est pas dans l'ontologie 
+                if (Double.isNaN(distNorm)) {
+                        tableau[0] = 0;
+                        tableau[1] = 0;
+                        tableau[2] = 1;
+                }
 
 		try {
 			checkSommeMasseEgale1(tableau);
@@ -82,6 +88,7 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 			e.printStackTrace();
 			throw e;
 		}
+		
 
 		return tableau;
 	}
