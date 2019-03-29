@@ -68,13 +68,25 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 	public double[] getMasse() throws Exception {
     
 		String nomTopoComp = "";
-		if (featureComp.getAttribute(nomAttComp) != null && featureComp.getAttribute(nomAttComp) != "") {
+		/*if (featureComp.getAttribute(nomAttComp) != null && featureComp.getAttribute(nomAttComp) != "") {
 			nomTopoComp = featureComp.getAttribute(nomAttComp).toString().toLowerCase();
 		}
 		String nomTopoRef = "";
 		if (featureRef.getAttribute(nomAttRef) != null) {
 			nomTopoRef = featureRef.getAttribute(nomAttRef).toString().toLowerCase();
+		}*/ 
+		
+		if (featureComp.getAttribute(nomAttComp) != null && featureComp.getAttribute(nomAttComp) != "") {
+		        nomTopoComp=new String(featureComp.getAttribute(nomAttComp).toString().getBytes("ISO-8859-1"), "UTF-8");
+		        nomTopoComp=nomTopoComp.toLowerCase();
+		 }
+		    
+		String nomTopoRef = "";
+		if (featureRef.getAttribute(nomAttRef) != null) {
+		       nomTopoRef = new String(featureRef.getAttribute(nomAttRef).toString().getBytes("ISO-8859-1"), "UTF-8");
+		       nomTopoRef=nomTopoRef.toLowerCase();
 		} 
+		
 		((DistanceAbstractText)distance).setText(nomTopoRef, nomTopoComp);
 		double distNorm = distance.getDistance();
     
@@ -90,12 +102,20 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 		}
     
 		// Si nom est NULL, on écrase 
-		if (nomTopoRef == null) {
+		if (nomTopoRef == null ) {
+		   
 			tableau[0] = 0;
 			tableau[1] = 0;
 			tableau[2] = 1;
 		}
-    
+		// Si nom objet Ref = NR, on écrase 
+		
+                if (nomTopoComp.equals("nr")) {
+                        tableau[0] = 0;
+                        tableau[1] = 0;
+                        tableau[2] = 1;
+                }
+	    
 	    /*if (distNorm < seuil) {
 	      tableau[0] = (-0.4/seuil)*distNorm + 0.5;
 	      tableau[1] = (0.8/seuil)*distNorm;
