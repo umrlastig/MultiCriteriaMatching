@@ -31,8 +31,9 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
     private OntologieOWL onto = null;
     
     /** Default URI ontologie. */
-    private static final String URI_ONTO = "./data/ontology/FusionTopoCartoExtract.owl";
-    // private static final String URI_ONTO = "./data/ontology/GeOnto.owl";
+    //private static final String URI_ONTO = "./data/ontology/FusionTopoCartoExtract.owl";
+     private static final String URI_ONTO = "./data/ontology/GeOnto.owl";
+    
     
     public DistanceWuPalmer(String uri) {
         try {
@@ -61,7 +62,7 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
     @Override
     public double getDistance() {
         float d = (float)(1 - mesureSimilariteWuPalmer(this.attrNameSemRef, this.attrNameSemComp));
-        // System.out.println("Distance WP " + this.typeRef + "-" + this.typeComp + " = " + d);
+        //System.out.println("Distance WP " + this.attrNameSemRef.toLowerCase() + "-" + this.attrNameSemComp.toLowerCase() + " = " + d);
         return d;
     }
     
@@ -70,12 +71,14 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
         
         RDFResource rS = onto.getOWLModel().getRDFResource(attrNameSemRef.toLowerCase());
         RDFResource rT = onto.getOWLModel().getRDFResource(typeComp.toLowerCase());
-        
-        MesureSimilariteSemantique mesureSim = new WuPalmerSemanticSimilarity(onto);
-        double scoreSimilariteSemantique = mesureSim.calcule(rS, rT);
-        // System.out.println(typeRef.toLowerCase() + ", " + typeComp.toLowerCase() + " = " + scoreSimilariteSemantique);
-        // LOGGER.trace("Score similarité sémantique = " + scoreSimilariteSemantique);
-        
+        double scoreSimilariteSemantique;
+        if (rS != null && rT != null ){
+            MesureSimilariteSemantique mesureSim = new WuPalmerSemanticSimilarity(onto);
+            scoreSimilariteSemantique = mesureSim.calcule(rS, rT);
+            //System.out.println(attrNameSemRef.toLowerCase() + ", " + typeComp.toLowerCase() + " = " + scoreSimilariteSemantique);
+            // LOGGER.trace("Score similarité sémantique = " + scoreSimilariteSemantique);
+        }
+        else scoreSimilariteSemantique = Double.NaN;
         return scoreSimilariteSemantique;
     }
 
