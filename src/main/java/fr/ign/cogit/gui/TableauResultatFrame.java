@@ -46,229 +46,235 @@ import fr.ign.cogit.dao.LigneResultat;
  */
 public class TableauResultatFrame implements ActionListener {
 
-  JFrame frame = null;
+	JFrame frame = null;
 
-  /** Button : close. */
-  private JButton closeButton = null;
+	/** Button : close. */
+	private JButton closeButton = null;
 
-  /** Tab Panels. */ 
-  JPanel buttonPanel = null;
-  JPanel resultatPanel = null;
+	/** Tab Panels. */
+	JPanel buttonPanel = null;
+	JPanel resultatPanel = null;
 
-  List<LigneResultat> listeResultat;
-  private JTable tableau;
-  
-  private static final String COL_NAME_CLE_REF  = "ID ref";
-  private static final String COL_NAME_CLE_COMP = "ID candidat";
-  private static final String COL_NAME_NOM_REF  = "Nom ref";
-  private static final String COL_NAME_NOM_COMP = "Nom candidat";
-  private static final String COL_NAME_PIGN_C1  = "Proba pign premier";
-  private static final String COL_NAME_PIGN_C2  = "Proba pign second";
-  private static final String COL_NAME_DECISION = "Decision";
+	List<LigneResultat> listeResultat;
+	private JTable tableau;
 
-  
-  public void displayEnsFrame(String title, List<LigneResultat> listeResultat) {
-    
-	  this.listeResultat = listeResultat;
+	private static final String COL_NAME_CLE_REF = "ID ref";
+	private static final String COL_NAME_CLE_COMP = "ID candidat";
+	private static final String COL_NAME_NOM_REF = "Nom ref";
+	private static final String COL_NAME_NOM_COMP = "Nom candidat";
+	private static final String COL_NAME_PIGN_C1 = "Proba pign premier";
+	private static final String COL_NAME_PIGN_C2 = "Proba pign second";
+	private static final String COL_NAME_DECISION = "Decision";
 
-	  frame = new JFrame(title);
+	private Vector<Vector<?>> rowData = new Vector<Vector<?>>();
+	private Vector<String> columnNames = new Vector<String>();
+	
+	public void displayEnsFrame(String title, List<LigneResultat> listeResultat) {
 
-	  initResultatPanel();
-	  initButtonPanel();
+		this.listeResultat = listeResultat;
 
-	  frame.getContentPane().setLayout(new BorderLayout());
-	  frame.getContentPane().add(resultatPanel, BorderLayout.CENTER);
-	  frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+		frame = new JFrame(title);
 
+		initResultat();
+		initResultatPanel();
+		initButtonPanel();
 
-	  frame.setVisible(true);
-	  frame.setLocation(250, 250);
-	  frame.setSize(500, 500);
-	  frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(new BorderLayout());
+		frame.getContentPane().add(resultatPanel, BorderLayout.CENTER);
+		frame.getContentPane().add(buttonPanel, BorderLayout.SOUTH);
 
-  }
+		frame.setVisible(true);
+		frame.setLocation(250, 250);
+		frame.setSize(500, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-  @Override
-  public void actionPerformed(ActionEvent evt) {
-	  Object source = evt.getSource();
-	  if (source == closeButton) {
-		  // close
-		  frame.dispose();
-	  }
-  }
+	}
+	
+	public void setListeResultat(List<LigneResultat> listeResultat) {
+		this.listeResultat = listeResultat;
+	}
 
-  
-  private void initButtonPanel() {
-	  buttonPanel = new JPanel(); 
-	  buttonPanel.setLayout(new FlowLayout (FlowLayout.CENTER)); 
+	@Override
+	public void actionPerformed(ActionEvent evt) {
+		Object source = evt.getSource();
+		if (source == closeButton) {
+			// close
+			frame.dispose();
+		}
+	}
 
-	  closeButton = new JButton("Close");
-	  closeButton.addActionListener(this);
-	  buttonPanel.add(closeButton);
-  }
+	private void initButtonPanel() {
+		buttonPanel = new JPanel();
+		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
 
-  
-  private void initResultatPanel() {
+		closeButton = new JButton("Close");
+		closeButton.addActionListener(this);
+		buttonPanel.add(closeButton);
+	}
+	
+	
+	public void initResultat() {
+		
+		// Les données
+		for (int i = 0; i < this.listeResultat.size(); i++) {
 
-	  resultatPanel = new JPanel();
-	  resultatPanel.setLayout(new BorderLayout()); 
+			Vector<Object> rowOne = new Vector<Object>();
+			LigneResultat res = this.listeResultat.get(i);
 
-	  Vector<Vector<?>> rowData = new Vector<Vector<?>>();
-	  for (int i = 0; i < this.listeResultat.size(); i++) {
-		  
-		  Vector<Object> rowOne = new Vector<Object>();
-		  LigneResultat res = this.listeResultat.get(i);
-      
-		  rowOne.addElement(res.getIdTopoRef());
-		  rowOne.addElement(res.getCompteurC());
-		  rowOne.addElement(res.getIdTopoComp());
-      
-		  rowOne.addElement(res.getNomTopoRef());
-		  rowOne.addElement(res.getNomTopoComp());
+			rowOne.addElement(res.getIdTopoRef());
+			rowOne.addElement(res.getCompteurC());
+			rowOne.addElement(res.getIdTopoComp());
 
-		  // Autres attributs
-		  // rowOne.addElement(res.getTypeTopoRef());
-		  // rowOne.addElement(res.getTypeTopoComp());
+			rowOne.addElement(res.getNomTopoRef());
+			rowOne.addElement(res.getNomTopoComp());
 
-		  for (int c = 0; c < this.listeResultat.get(i).getDistances().length; c++) {
-			  double d = this.listeResultat.get(i).getDistance(c);
-			  if (d < 0) {
-				  rowOne.addElement("");
-			  } else {
-				  rowOne.addElement(d);
-			  }
-		  }
-      
-		  rowOne.addElement(res.getProbaPignistiquePremier());
-		  rowOne.addElement(res.getProbaPignistiqueSecond());
-		  rowOne.addElement(res.isDecision());
-      
-		  rowData.add(rowOne);
-	  }
+			// Autres attributs
+			// rowOne.addElement(res.getTypeTopoRef());
+			// rowOne.addElement(res.getTypeTopoComp());
 
-	  Vector<String> columnNames = new Vector<String>();
-	  columnNames.addElement(COL_NAME_CLE_REF);
-	  columnNames.addElement("N°");
-	  columnNames.addElement(COL_NAME_CLE_COMP);
-    
-	  columnNames.addElement(COL_NAME_NOM_REF);
-	  columnNames.addElement(COL_NAME_NOM_COMP);
-    
-	  //    columnNames.addElement("Nature ref");
-	  //    columnNames.addElement("Nature comp");
+			for (int c = 0; c < this.listeResultat.get(i).getDistances().length; c++) {
+				double d = this.listeResultat.get(i).getDistance(c);
+				if (d < 0) {
+					rowOne.addElement("");
+				} else {
+					rowOne.addElement(d);
+				}
+			}
 
-	  for (int c = 0; c < this.listeResultat.get(0).getDistances().length; c++) {
-		  columnNames.addElement(this.listeResultat.get(0).getNomDistance(c));
-	  }
-	  
-	  columnNames.addElement(COL_NAME_PIGN_C1);
-	  columnNames.addElement(COL_NAME_PIGN_C2);
-	  columnNames.addElement(COL_NAME_DECISION);
+			rowOne.addElement(res.getProbaPignistiquePremier());
+			rowOne.addElement(res.getProbaPignistiqueSecond());
+			rowOne.addElement(res.isDecision());
 
-	  tableau = new JTable(rowData, columnNames);
-	  tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			rowData.add(rowOne);
+		}
+		
+		// Les colonnes
+		columnNames.addElement(COL_NAME_CLE_REF);
+		columnNames.addElement("N°");
+		columnNames.addElement(COL_NAME_CLE_COMP);
 
-	  if(rowData != null && rowData.size() > 0) {
-		  for (int l = 1; l < rowData.get(0).size(); l++) {
-			  tableau.getColumnModel().getColumn(l).setCellRenderer(new ColorRedRenderer());
-		  }
-	  }
-	  tableau.getColumnModel().getColumn(0).setCellRenderer(new TitreRenderer());
+		columnNames.addElement(COL_NAME_NOM_REF);
+		columnNames.addElement(COL_NAME_NOM_COMP);
 
-	  resultatPanel.add(tableau.getTableHeader(), BorderLayout.NORTH);
-	  resultatPanel.add(new JScrollPane(tableau), BorderLayout.CENTER);
-  }
-  
-  
-  public void exportToCSV () {
-    
-    try {
-      String pathToExportTo = "./data/resultat/app-" + new SimpleDateFormat("yyyyMMdd-HHmmssSSS", Locale.FRANCE).format(new Date()) + ".csv";
-      FileWriter excel = new FileWriter(new File(pathToExportTo));
-      
-      // Nom des colonnes
-      TableModel model = tableau.getModel();
-      for(int i = 0; i < model.getColumnCount(); i++){
-        excel.write(model.getColumnName(i) + ";");
-      }
-      excel.write("\n");
-      
-      // Toutes les lignes
-      for (int i = 0; i < model.getRowCount(); i++) {
-        for (int j = 0; j < model.getColumnCount(); j++) {
-          if (model.getValueAt(i,j) == null) {
-            excel.write("" + ";");
-          } else {
-            excel.write(model.getValueAt(i,j).toString() + ";");
-          }
-        }
-        excel.write("\n");
-      }
-    
-      // Fermeture du fichier
-      excel.close();
-      
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    
-  }
-  
-  /**
-   * 
-   */
-  public int[] analyse() {
-    
-    int nbApp = 0;
-    int nbNA = 0;
-    int nbIndecis = 0;
-    
-    TableModel model = tableau.getModel();
-    // String colnameold = "";
-    // Toutes les lignes
-    for (int i = 0; i < model.getRowCount(); i++) {
-      boolean isNA = false;
-      for (int j = 0; j < model.getColumnCount(); j++) {
-        String colname = model.getColumnName(j);
-        
-        if (model.getValueAt(i,j) != null) {
-          String val = model.getValueAt(i,j).toString();
-          // System.out.println(colname + " : " + val);
-          
-          if (colname.equals(COL_NAME_NOM_COMP)) {
-            if (val.equals("NA")) {
-              isNA = true;
-            } else {
-              isNA = false;
-            }
-          }
-          
-          if (colname.equals(COL_NAME_DECISION)) {
-            if (isNA && val.equals("true")) {
-              nbNA++;
-            }
-            if (!isNA && val.equals("true")) {
-              nbApp++;
-            }
-            if (isNA && val.equals("indécis")) {
-              nbIndecis++;
-            }
-          }
-          
-        }
-      }
-    }
-    
-    int[] tab = new int[3];
-    tab[0] = nbNA;
-    tab[1] = nbApp;
-    tab[2] = nbIndecis;
-    return tab; 
-    
-  }
-  
-  
-  
+		// columnNames.addElement("Nature ref");
+		// columnNames.addElement("Nature comp");
+
+		for (int c = 0; c < this.listeResultat.get(0).getDistances().length; c++) {
+			columnNames.addElement(this.listeResultat.get(0).getNomDistance(c));
+		}
+
+		columnNames.addElement(COL_NAME_PIGN_C1);
+		columnNames.addElement(COL_NAME_PIGN_C2);
+		columnNames.addElement(COL_NAME_DECISION);
+		
+	}
+
+	
+	private void initResultatPanel() {
+
+		resultatPanel = new JPanel();
+		resultatPanel.setLayout(new BorderLayout());
+
+		tableau = new JTable(rowData, columnNames);
+		tableau.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		if (rowData != null && rowData.size() > 0) {
+			for (int l = 1; l < rowData.get(0).size(); l++) {
+				tableau.getColumnModel().getColumn(l).setCellRenderer(new ColorRedRenderer());
+			}
+		}
+		tableau.getColumnModel().getColumn(0).setCellRenderer(new TitreRenderer());
+
+		resultatPanel.add(tableau.getTableHeader(), BorderLayout.NORTH);
+		resultatPanel.add(new JScrollPane(tableau), BorderLayout.CENTER);
+	}
+
+	public void exportToCSV() {
+
+		try {
+			String pathToExportTo = "./data/resultat/app-"
+					+ new SimpleDateFormat("yyyyMMdd-HHmmssSSS", Locale.FRANCE).format(new Date()) + ".csv";
+			FileWriter excel = new FileWriter(new File(pathToExportTo));
+
+			// Nom des colonnes
+			TableModel model = tableau.getModel();
+			for (int i = 0; i < model.getColumnCount(); i++) {
+				excel.write(model.getColumnName(i) + ";");
+			}
+			excel.write("\n");
+
+			// Toutes les lignes
+			for (int i = 0; i < model.getRowCount(); i++) {
+				for (int j = 0; j < model.getColumnCount(); j++) {
+					if (model.getValueAt(i, j) == null) {
+						excel.write("" + ";");
+					} else {
+						excel.write(model.getValueAt(i, j).toString() + ";");
+					}
+				}
+				excel.write("\n");
+			}
+
+			// Fermeture du fichier
+			excel.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	public int[] analyse() {
+
+		int nbApp = 0;
+		int nbNA = 0;
+		int nbIndecis = 0;
+
+		// Toutes les lignes
+		for (int i = 0; i < this.rowData.size(); i++) {
+			boolean isNA = false;
+			for (int j = 0; j < this.columnNames.size(); j++) {
+			
+				String colname = this.columnNames.get(j);
+				
+				if (rowData.elementAt(i).get(j) != null) {
+					String val = rowData.elementAt(i).get(j).toString();
+					// System.out.println(colname + " : " + val);
+
+					if (colname.equals(COL_NAME_NOM_COMP)) {
+						if (val.equals("NA")) {
+							isNA = true;
+						} else {
+							isNA = false;
+						}
+					}
+
+					if (colname.equals(COL_NAME_DECISION)) {
+						if (isNA && val.equals("true")) {
+							nbNA++;
+						}
+						if (!isNA && val.equals("true")) {
+							nbApp++;
+						}
+						if (isNA && val.equals("indécis")) {
+							nbIndecis++;
+						}
+					}
+
+				}
+			}
+		}
+
+		int[] tab = new int[3];
+		tab[0] = nbNA;
+		tab[1] = nbApp;
+		tab[2] = nbIndecis;
+		return tab;
+
+	}
 
 }
 
@@ -278,49 +284,51 @@ public class TableauResultatFrame implements ActionListener {
  */
 class ColorRedRenderer extends DefaultTableCellRenderer {
 
-  /** Default serial id. */
-  private static final long serialVersionUID = 1L;
+	/** Default serial id. */
+	private static final long serialVersionUID = 1L;
 
-  @Override
-  public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-    super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-    if (value != null) {
-      if (value.equals("")) {
-        // setBackground(Color.RED);
-      } else if (value.equals("true")) {
-        for (int c = 0; c < table.getColumnCount(); c++) {
-          super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, c).setBackground(Color.GREEN);
-          // System.out.println("Nb de colonnes = " + table.getColumnCount() + " - " + c);
-        }
-        // setBackground(Color.GREEN);
-      } else if (value.equals("indécis")) {
-        setBackground(Color.ORANGE);
-      } else {
-        setBackground(Color.WHITE);
-      } 
-    } else {
-      setBackground(Color.WHITE);
-    }
+		if (value != null) {
+			if (value.equals("")) {
+				// setBackground(Color.RED);
+			} else if (value.equals("true")) {
+				for (int c = 0; c < table.getColumnCount(); c++) {
+					super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, c)
+							.setBackground(Color.GREEN);
+					// System.out.println("Nb de colonnes = " + table.getColumnCount() + " - " + c);
+				}
+				// setBackground(Color.GREEN);
+			} else if (value.equals("indécis")) {
+				setBackground(Color.ORANGE);
+			} else {
+				setBackground(Color.WHITE);
+			}
+		} else {
+			setBackground(Color.WHITE);
+		}
 
-    return this;
-  }
+		return this;
+	}
 }
-
 
 class TitreRenderer extends DefaultTableCellRenderer {
 
-  /** Default serial id. */
-  private static final long serialVersionUID = 1L;
+	/** Default serial id. */
+	private static final long serialVersionUID = 1L;
 
-  @Override
-  public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-    super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+	@Override
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+			int row, int column) {
+		super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 
-    setBackground(UIManager.getColor("Panel.background"));
-    setForeground(Color.BLACK);
+		setBackground(UIManager.getColor("Panel.background"));
+		setForeground(Color.BLACK);
 
-    return this;
-  }
+		return this;
+	}
 
 }

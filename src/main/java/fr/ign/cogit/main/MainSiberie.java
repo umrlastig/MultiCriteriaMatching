@@ -46,7 +46,6 @@ import fr.ign.cogit.io.ExportToCSV;
 
 /**
  * 
- * 
  * @author M-D Van Damme
  */
 public class MainSiberie {
