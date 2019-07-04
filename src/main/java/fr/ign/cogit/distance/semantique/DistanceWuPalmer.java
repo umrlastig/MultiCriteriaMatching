@@ -66,6 +66,22 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
         return d;
     }
     
+    public static String getClass(String attrNameSemRef) {
+        String type = "";
+        try {
+            File file = new File(URI_ONTO);
+            OntologieOWL onto = new OntologieOWL("Onto", file.getPath());
+            
+            RDFResource rS = onto.getOWLModel().getRDFResource(attrNameSemRef.toLowerCase());
+            if (rS != null) {
+                type = rS.getName();
+            }
+            
+        } catch(Exception e) {
+            e.printStackTrace();
+        } 
+        return type;
+    }
     
     public double mesureSimilariteWuPalmer(String attrNameSemRef, String typeComp) {
         

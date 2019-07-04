@@ -27,7 +27,10 @@ public class DistanceSamal extends DistanceAbstractText implements Distance {
   
 	@Override
 	public double getDistance() {
-		return 1 - mesureRessemblanceToponymeSamal(txtRef, txtComp);
+	    if (txtComp.equals("nr")) {
+            return Double.NaN;
+        } 
+        return Math.abs(1 - mesureRessemblanceToponymeSamal(txtRef, txtComp));
 	}
   
 	public static double getDistance(String s, String t) {

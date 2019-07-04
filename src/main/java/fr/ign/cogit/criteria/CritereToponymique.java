@@ -88,10 +88,14 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 		} 
 		
 		((DistanceAbstractText)distance).setText(nomTopoRef, nomTopoComp);
-		double distNorm = distance.getDistance();
+		Double distNorm = distance.getDistance();
     
 		double[] tableau = new double[3];
-		if (distNorm < seuil) {
+		if (distNorm.isNaN()) {
+            tableau[0] = 0;
+            tableau[1] = 0;
+            tableau[2] = 1;
+        } else if (distNorm < seuil) {
 			tableau[0] = (-0.9/seuil)*distNorm + 1;
 			tableau[1] = (0.5/seuil)*distNorm;
 			tableau[2] = (0.4/seuil)*distNorm;
@@ -103,18 +107,16 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
     
 		// Si nom est NULL, on écrase 
 		if (nomTopoRef == null ) {
-		   
 			tableau[0] = 0;
 			tableau[1] = 0;
 			tableau[2] = 1;
 		}
 		// Si nom objet Ref = NR, on écrase 
-		
-                if (nomTopoComp.equals("nr")) {
-                        tableau[0] = 0;
-                        tableau[1] = 0;
-                        tableau[2] = 1;
-                }
+		if (nomTopoComp == null || nomTopoComp.equals("nr")) {
+		    tableau[0] = 0;
+		    tableau[1] = 0;
+		    tableau[2] = 1;
+		}
 	    
 	    /*if (distNorm < seuil) {
 	      tableau[0] = (-0.4/seuil)*distNorm + 0.5;
