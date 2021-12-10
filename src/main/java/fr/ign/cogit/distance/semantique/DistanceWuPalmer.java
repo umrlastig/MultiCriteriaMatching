@@ -1,4 +1,3 @@
-
 /**
  * 
  * This software is released under the licence CeCILL
@@ -11,53 +10,40 @@
  * @copyright IGN
  * 
  * 
- */package fr.ign.cogit.distance.semantique;
+ */
 
-import java.io.File;
+package fr.ign.cogit.distance.semantique;
 
-import edu.stanford.smi.protegex.owl.model.RDFResource;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.rdf.model.ModelFactory;
+
 import fr.ign.cogit.distance.Distance;
-import fr.ign.cogit.ontology.OntologieOWL;
-import fr.ign.cogit.ontology.similarite.MesureSimilariteSemantique;
-import fr.ign.cogit.ontology.similarite.WuPalmerSemanticSimilarity;
+import fr.ign.cogit.util.ontology.WP;
 
 /**
  * 
  * @author M-D Van Damme
  */
 public class DistanceWuPalmer extends DistanceAbstractSemantique implements Distance {
-    
-    /** Ontologie. */
-    private OntologieOWL onto = null;
-    
-    /** Default URI ontologie. */
-    //private static final String URI_ONTO = "./data/ontology/FusionTopoCartoExtract.owl";
-     private static final String URI_ONTO = "./data/ontology/GeOnto.owl";
-    
+	
+	/** Ontologie. */
+    private OntModel owlmodel = null;
     
     public DistanceWuPalmer(String uri) {
         try {
-            File file = new File(uri);
-            onto = new OntologieOWL("Onto", file.getPath());
+            owlmodel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+    		owlmodel.read(uri, "RDF/XML");
         } catch(Exception e) {
             e.printStackTrace();
         } 
     }
     
-    public DistanceWuPalmer() {
-    	this(URI_ONTO);
-    }
-    
-    public void close() {
-        if (onto != null) {
-            onto.close();
+    /*public void close() {
+        if (owlmodel != null) {
+        	owlmodel.close();
         }
-    }
-    
-    public DistanceWuPalmer(OntologieOWL onto) {
-        this.onto = onto;
-    }
-    
+    }*/
     
     @Override
     public double getDistance() {
@@ -66,38 +52,10 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
         return d;
     }
     
-    public static String getClass(String attrNameSemRef) {
-        String type = "";
-        try {
-            File file = new File(URI_ONTO);
-            OntologieOWL onto = new OntologieOWL("Onto", file.getPath());
-            
-            RDFResource rS = onto.getOWLModel().getRDFResource(attrNameSemRef.toLowerCase());
-            if (rS != null) {
-                type = rS.getName();
-            }
-            
-        } catch(Exception e) {
-            e.printStackTrace();
-        } 
-        return type;
+    public double mesureSimilariteWuPalmer(String uri1, String uri2) {
+    	WP dwp = new WP(owlmodel);
+    	return dwp.getScoreSimilarite(uri1, uri2);
     }
-    
-    public double mesureSimilariteWuPalmer(String attrNameSemRef, String typeComp) {
-        
-        RDFResource rS = onto.getOWLModel().getRDFResource(attrNameSemRef.toLowerCase());
-        RDFResource rT = onto.getOWLModel().getRDFResource(typeComp.toLowerCase());
-        double scoreSimilariteSemantique;
-        if (rS != null && rT != null ){
-            MesureSimilariteSemantique mesureSim = new WuPalmerSemanticSimilarity(onto);
-            scoreSimilariteSemantique = mesureSim.calcule(rS, rT);
-            //System.out.println(attrNameSemRef.toLowerCase() + ", " + typeComp.toLowerCase() + " = " + scoreSimilariteSemantique);
-            // LOGGER.trace("Score similarité sémantique = " + scoreSimilariteSemantique);
-        }
-        else scoreSimilariteSemantique = Double.NaN;
-        return scoreSimilariteSemantique;
-    }
-
     
     @Override
     public String getNom() {

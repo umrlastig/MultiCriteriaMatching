@@ -25,7 +25,6 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 import fr.ign.cogit.criteria.Critere;
-import fr.ign.cogit.dao.LigneResultat;
 import fr.ign.cogit.metadata.Objet;
 import fr.ign.cogit.evidence.configuration.Configuration;
 import fr.ign.cogit.evidence.configuration.ConfigurationSet;
@@ -65,6 +64,9 @@ public class AppariementDST {
   
   public void setSeuilIndecision(double seuilIndecision) {
     this.seuilIndecision = seuilIndecision;
+  }
+  public double getSeuilIndecision() {
+	  return this.seuilIndecision;
   }
   
   public void setListCritere(List<Critere> listCritere) {

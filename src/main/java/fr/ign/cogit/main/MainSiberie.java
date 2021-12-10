@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import fr.ign.cogit.appariement.AppariementDST;
-import fr.ign.cogit.dao.LigneResultat;
+import fr.ign.cogit.appariement.LigneResultat;
 import fr.ign.cogit.metadata.Objet;
 import fr.ign.cogit.metadata.PAIBDCarto;
 import fr.ign.cogit.metadata.PAIBDTopo;
@@ -40,8 +40,8 @@ import fr.ign.cogit.geoxygene.schema.schemaConceptuelISOJeu.AttributeType;
 import fr.ign.cogit.geoxygene.schema.schemaConceptuelISOJeu.FeatureType;
 import fr.ign.cogit.geoxygene.spatial.coordgeom.DirectPosition;
 import fr.ign.cogit.geoxygene.spatial.geomprim.GM_Point;
+import fr.ign.cogit.gui.ExportToCSV;
 import fr.ign.cogit.gui.TableauResultatFrame;
-import fr.ign.cogit.io.ExportToCSV;
 
 
 /**
@@ -107,7 +107,7 @@ public class MainSiberie {
         listCritere.add(cg);
         
         // Critere sémantique
-        DistanceWuPalmer dwp = new DistanceWuPalmer();
+        DistanceWuPalmer dwp = new DistanceWuPalmer("./data/ontology/GeOnto2.owl");
         CritereSemantique cs = new CritereSemantique(dwp);
         cs.setMetadata(objRef, objComp);
         cs.setSeuil(0.7);
@@ -132,7 +132,7 @@ public class MainSiberie {
         System.out.println("NB d'indécis : " + tab[2]);
         // System.out.println("NB sans candidat : " + nbSansCandidat);
         
-        ExportToCSV.exportAppariement(lres, "./data/resultat/Rando/appariement");
+        ExportToCSV.exportAppariement(listCritere, evidenceAlgoFusionCritere.getSeuilIndecision(), lres, "./data/resultat/Rando/appariement");
     }
 
     

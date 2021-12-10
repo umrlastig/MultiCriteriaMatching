@@ -29,6 +29,10 @@ public class CritereOrientation extends CritereAbstract implements Critere {
 	public void setSeuil(double seuilAngle) {
 		this.seuilAngle = seuilAngle;
 	}
+	
+	public String getSeuil() {
+		return "[" + this.seuilAngle + "]";
+	}
   
 	public void setFeature(IFeature featureRef, IFeature featureComp) {
 		super.setFeature(featureRef, featureComp);

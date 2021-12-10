@@ -8,6 +8,7 @@ import java.util.Map;
 import org.junit.Assert;
 
 import fr.ign.cogit.appariement.AppariementDST;
+import fr.ign.cogit.appariement.LigneResultat;
 import fr.ign.cogit.criteria.Critere;
 import fr.ign.cogit.criteria.CritereGeom;
 import fr.ign.cogit.criteria.CritereSemantique;
@@ -29,7 +30,6 @@ import fr.ign.cogit.gui.TableauResultatFrame;
 import fr.ign.cogit.metadata.PAIBDCarto;
 import fr.ign.cogit.metadata.PAIBDTopo;
 import fr.ign.cogit.metadata.Objet;
-import fr.ign.cogit.dao.LigneResultat;
 import junit.framework.TestCase;
 
 /**
@@ -159,304 +159,300 @@ public class TestAppPointSiberie extends TestCase {
      * 
      * @throws Exception
      */
-    public void testApp3Critere_1() throws Exception {
-        
-        AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
-        evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
-        
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
-        List<Critere> listCritere = new ArrayList<Critere>();
-        
-        // Critere toponymique
-        DistanceSamal ds = new DistanceSamal();
-        CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
-        ct.setSeuil(0.6);
-        listCritere.add(ct);
-            
-        // Critere géométrique
-        DistanceEuclidienne dg = new DistanceEuclidienne();
-        CritereGeom cg = new CritereGeom(dg);
-        cg.setSeuil(100, 220);
-        listCritere.add(cg);
-        
-        // Critere sémantique
-        DistanceWuPalmer dwp = new DistanceWuPalmer();
-        CritereSemantique cs = new CritereSemantique(dwp);
-        cs.setMetadata(objRef, objComp);
-        cs.setSeuil(0.7);
-        listCritere.add(cs);
-        
-        evidenceAlgoFusionCritere.setListCritere(listCritere);
-        
-        IPopulation<IFeature> candidatListe = new Population<IFeature>();
-        candidatListe.add(getCandidat1());
-        candidatListe.add(getCandidat2());
-        candidatListe.add(getCandidat3());
-        
-        IFeature ref = getRef();
-        
-        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
-        
-        Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
-        
-        // NA
-        LigneResultat ligne0 = lres.get(0);
-        Assert.assertEquals("Nom des objets", ligne0.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne0.getNomTopoComp(), "NA");
-        Assert.assertEquals("Prem proba pign", ligne0.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne0.isDecision(), "false");
-        
-        LigneResultat ligne1 = lres.get(1);
-        Assert.assertEquals("Nom des objets", ligne1.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne1.getNomTopoComp(), CANDIDAT1_NOM);
-        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoRef(), REF_NATURE);
-        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoComp(), CANDIDAT1_NATURE);
-        Assert.assertEquals("Distance toponymique", ligne1.getDistance(0), 0.857, 0.001);
-        Assert.assertEquals("Distance euclidienne", ligne1.getDistance(1), 245.889, 0.001);
-        Assert.assertEquals("Distance sémantique", ligne1.getDistance(2), 0.333, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne1.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne1.isDecision(), "false");
-        
-        LigneResultat ligne2 = lres.get(2);
-        Assert.assertEquals("Nom des objets", ligne2.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne2.getNomTopoComp(), CANDIDAT2_NOM);
-        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoRef(), REF_NATURE);
-        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoComp(), CANDIDAT2_NATURE);
-        Assert.assertEquals("Distance toponymique", ligne2.getDistance(0), 0.866, 0.001);
-        Assert.assertEquals("Distance euclidienne", ligne2.getDistance(1), 452.187, 0.001);
-        Assert.assertEquals("Distance sémantique", ligne2.getDistance(2), 0.333, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne2.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne2.isDecision(), "false");
-        
-        LigneResultat ligne3 = lres.get(3);
-        Assert.assertEquals("Nom des objets", ligne3.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne3.getNomTopoComp(), CANDIDAT3_NOM);
-        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoRef(), REF_NATURE);
-        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoComp(), CANDIDAT3_NATURE);
-        Assert.assertEquals("Distance toponymique", ligne3.getDistance(0), 0.0, 0.001);
-        Assert.assertEquals("Distance euclidienne", ligne3.getDistance(1), 377.447, 0.001);
-        Assert.assertEquals("Distance sémantique", ligne3.getDistance(2), 0.0, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne3.getProbaPignistiquePremier(), 1.0, 0.01);
-        Assert.assertEquals("Decision", ligne3.isDecision(), "true");
-        
-        TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
-        int[] tab = tableauPanel.analyse();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
-        Assert.assertEquals("NB NA : ", tab[0], 0);
-        Assert.assertEquals("NB Appariement : ", tab[1], 1);
-        Assert.assertEquals("NB d'indécis : ", tab[2], 0);
-
-    }
-    
-    
-    /**
-     * Appariement 3 criteres dans l'ordre : géométrie + toponymie + sémantique
-     * 
-     * @throws Exception
-     */
-    public void testApp3Critere_2() throws Exception {
-        
-        AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
-        evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
-        
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
-        List<Critere> listCritere = new ArrayList<Critere>();
-        
-        // Critere géométrique
-        DistanceEuclidienne dg = new DistanceEuclidienne();
-        CritereGeom cg = new CritereGeom(dg);
-        cg.setSeuil(100, 220);
-        listCritere.add(cg);
-        
-        // Critere toponymique
-        DistanceSamal ds = new DistanceSamal();
-        CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
-        ct.setSeuil(0.6);
-        listCritere.add(ct);
-        
-        // Critere sémantique
-        DistanceWuPalmer dwp = new DistanceWuPalmer();
-        CritereSemantique cs = new CritereSemantique(dwp);
-        cs.setMetadata(objRef, objComp);
-        cs.setSeuil(0.7);
-        listCritere.add(cs);
-        
-        evidenceAlgoFusionCritere.setListCritere(listCritere);
-        
-        IPopulation<IFeature> candidatListe = new Population<IFeature>();
-        candidatListe.add(getCandidat1());
-        candidatListe.add(getCandidat2());
-        candidatListe.add(getCandidat3());
-        
-        IFeature ref = getRef();
-        
-        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
-        
-        Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
-        
-        // NA
-        LigneResultat ligne0 = lres.get(0);
-        Assert.assertEquals("Nom des objets", ligne0.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne0.getNomTopoComp(), "NA");
-        Assert.assertEquals("Prem proba pign", ligne0.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne0.isDecision(), "false");
-        
-        LigneResultat ligne1 = lres.get(1);
-        Assert.assertEquals("Nom des objets", ligne1.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne1.getNomTopoComp(), CANDIDAT1_NOM);
-        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoRef(), REF_NATURE);
-        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoComp(), CANDIDAT1_NATURE);
-        Assert.assertEquals(ligne1.getNomDistance(0), ligne1.getDistance(0), 245.889, 0.001);
-        Assert.assertEquals(ligne1.getNomDistance(1), ligne1.getDistance(1), 0.857, 0.001);
-        Assert.assertEquals(ligne1.getNomDistance(2), ligne1.getDistance(2), 0.333, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne1.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne1.isDecision(), "false");
-        
-        LigneResultat ligne2 = lres.get(2);
-        Assert.assertEquals("Nom des objets", ligne2.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne2.getNomTopoComp(), CANDIDAT2_NOM);
-        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoRef(), REF_NATURE);
-        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoComp(), CANDIDAT2_NATURE);
-        Assert.assertEquals(ligne2.getNomDistance(0), ligne2.getDistance(0), 452.187, 0.001);
-        Assert.assertEquals(ligne2.getNomDistance(1), ligne2.getDistance(1), 0.866, 0.001);
-        Assert.assertEquals(ligne2.getNomDistance(2), ligne2.getDistance(2), 0.333, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne2.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne2.isDecision(), "false");
-        
-        LigneResultat ligne3 = lres.get(3);
-        Assert.assertEquals("Nom des objets", ligne3.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne3.getNomTopoComp(), CANDIDAT3_NOM);
-        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoRef(), REF_NATURE);
-        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoComp(), CANDIDAT3_NATURE);
-        Assert.assertEquals(ligne3.getNomDistance(0), ligne3.getDistance(0), 377.447, 0.001);
-        Assert.assertEquals(ligne3.getNomDistance(1), ligne3.getDistance(1), 0.0, 0.001);
-        Assert.assertEquals(ligne3.getNomDistance(2), ligne3.getDistance(2), 0.0, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne3.getProbaPignistiquePremier(), 1.0, 0.01);
-        Assert.assertEquals("Decision", ligne3.isDecision(), "true");
-        
-        TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
-        int[] tab = tableauPanel.analyse();
-        
-        Assert.assertEquals("NB NA : ", tab[0], 0);
-        Assert.assertEquals("NB Appariement : ", tab[1], 1);
-        Assert.assertEquals("NB d'indécis : ", tab[2], 0);
-
-    }
-    
-    /**
-     * Appariement 3 criteres dans l'ordre : géométrie + sémantique + toponymie
-     * 
-     * @throws Exception
-     */
-    public void testApp3Critere_3() throws Exception {
-        
-        AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
-        evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
-        
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
-        List<Critere> listCritere = new ArrayList<Critere>();
-        
-        // Critere géométrique
-        DistanceEuclidienne dg = new DistanceEuclidienne();
-        CritereGeom cg = new CritereGeom(dg);
-        cg.setSeuil(100, 220);
-        listCritere.add(cg);
-        
-        // Critere sémantique
-        DistanceWuPalmer dwp = new DistanceWuPalmer();
-        CritereSemantique cs = new CritereSemantique(dwp);
-        cs.setMetadata(objRef, objComp);
-        cs.setSeuil(0.7);
-        listCritere.add(cs);
-        
-        // Critere toponymique
-        DistanceSamal ds = new DistanceSamal();
-        CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
-        ct.setSeuil(0.6);
-        listCritere.add(ct);
-        
-        evidenceAlgoFusionCritere.setListCritere(listCritere);
-        
-        IPopulation<IFeature> candidatListe = new Population<IFeature>();
-        candidatListe.add(getCandidat1());
-        candidatListe.add(getCandidat2());
-        candidatListe.add(getCandidat3());
-        
-        IFeature ref = getRef();
-        
-        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
-        
-        Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
-        
-        // NA
-        LigneResultat ligne0 = lres.get(0);
-        Assert.assertEquals("Nom des objets", ligne0.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne0.getNomTopoComp(), "NA");
-        Assert.assertEquals("Prem proba pign", ligne0.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne0.isDecision(), "false");
-        
-        LigneResultat ligne1 = lres.get(1);
-        Assert.assertEquals("Nom des objets", ligne1.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne1.getNomTopoComp(), CANDIDAT1_NOM);
-        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoRef(), REF_NATURE);
-        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoComp(), CANDIDAT1_NATURE);
-        Assert.assertEquals(ligne1.getNomDistance(0), ligne1.getDistance(0), 245.889, 0.001);
-        Assert.assertEquals(ligne1.getNomDistance(1), ligne1.getDistance(1), 0.333, 0.001);
-        Assert.assertEquals(ligne1.getNomDistance(2), ligne1.getDistance(2), 0.857, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne1.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne1.isDecision(), "false");
-        
-        LigneResultat ligne2 = lres.get(2);
-        Assert.assertEquals("Nom des objets", ligne2.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne2.getNomTopoComp(), CANDIDAT2_NOM);
-        //Assert.assertEquals("Nature des objets", ligne2.getTypeTopoRef(), REF_NATURE);
-        //Assert.assertEquals("Nature des objets", ligne2.getTypeTopoComp(), CANDIDAT2_NATURE);
-        Assert.assertEquals(ligne2.getNomDistance(0), ligne2.getDistance(0), 452.187, 0.001);
-        Assert.assertEquals(ligne2.getNomDistance(1), ligne2.getDistance(1), 0.333, 0.001);
-        Assert.assertEquals(ligne2.getNomDistance(2), ligne2.getDistance(2), 0.866, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne2.getProbaPignistiquePremier(), 0.0, 0.01);
-        Assert.assertEquals("Decision", ligne2.isDecision(), "false");
-        
-        LigneResultat ligne3 = lres.get(3);
-        Assert.assertEquals("Nom des objets", ligne3.getNomTopoRef(), REF_NOM);
-        Assert.assertEquals("Nom des objets", ligne3.getNomTopoComp(), CANDIDAT3_NOM);
-        //Assert.assertEquals("Nature des objets", ligne3.getTypeTopoRef(), REF_NATURE);
-        //Assert.assertEquals("Nature des objets", ligne3.getTypeTopoComp(), CANDIDAT3_NATURE);
-        Assert.assertEquals(ligne3.getNomDistance(0), ligne3.getDistance(0), 377.447, 0.001);
-        Assert.assertEquals(ligne3.getNomDistance(1), ligne3.getDistance(1), 0.0, 0.001);
-        Assert.assertEquals(ligne3.getNomDistance(2), ligne3.getDistance(2), 0.0, 0.001);
-        Assert.assertEquals("Prem proba pign", ligne3.getProbaPignistiquePremier(), 1.0, 0.01);
-        Assert.assertEquals("Decision", ligne3.isDecision(), "true");
-        
-        TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
-        int[] tab = tableauPanel.analyse();
-        
-        Assert.assertEquals("NB NA : ", tab[0], 0);
-        Assert.assertEquals("NB Appariement : ", tab[1], 1);
-        Assert.assertEquals("NB d'indécis : ", tab[2], 0);
-
-    }
-
-    
+//    public void testApp3Critere_1() throws Exception {
+//        
+//        AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
+//        evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
+//        
+//        Objet objRef = new PAIBDTopo();
+//        Objet objComp = new PAIBDCarto();
+//        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
+//    
+//        List<Critere> listCritere = new ArrayList<Critere>();
+//        
+//        // Critere toponymique
+//        DistanceSamal ds = new DistanceSamal();
+//        CritereToponymique ct = new CritereToponymique(ds);
+//        ct.setMetadata(objRef, objComp);
+//        ct.setSeuil(0.6);
+//        listCritere.add(ct);
+//            
+//        // Critere géométrique
+//        DistanceEuclidienne dg = new DistanceEuclidienne();
+//        CritereGeom cg = new CritereGeom(dg);
+//        cg.setSeuil(100, 220);
+//        listCritere.add(cg);
+//        
+//        // Critere sémantique
+//        DistanceWuPalmer dwp = new DistanceWuPalmer();
+//        CritereSemantique cs = new CritereSemantique(dwp);
+//        cs.setMetadata(objRef, objComp);
+//        cs.setSeuil(0.7);
+//        listCritere.add(cs);
+//        
+//        evidenceAlgoFusionCritere.setListCritere(listCritere);
+//        
+//        IPopulation<IFeature> candidatListe = new Population<IFeature>();
+//        candidatListe.add(getCandidat1());
+//        candidatListe.add(getCandidat2());
+//        candidatListe.add(getCandidat3());
+//        
+//        IFeature ref = getRef();
+//        
+//        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
+//        
+//        Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
+//        
+//        // NA
+//        LigneResultat ligne0 = lres.get(0);
+//        Assert.assertEquals("Nom des objets", ligne0.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne0.getNomTopoComp(), "NA");
+//        Assert.assertEquals("Prem proba pign", ligne0.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne0.isDecision(), "false");
+//        
+//        LigneResultat ligne1 = lres.get(1);
+//        Assert.assertEquals("Nom des objets", ligne1.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne1.getNomTopoComp(), CANDIDAT1_NOM);
+//        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoRef(), REF_NATURE);
+//        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoComp(), CANDIDAT1_NATURE);
+//        Assert.assertEquals("Distance toponymique", ligne1.getDistance(0), 0.857, 0.001);
+//        Assert.assertEquals("Distance euclidienne", ligne1.getDistance(1), 245.889, 0.001);
+//        Assert.assertEquals("Distance sémantique", ligne1.getDistance(2), 0.333, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne1.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne1.isDecision(), "false");
+//        
+//        LigneResultat ligne2 = lres.get(2);
+//        Assert.assertEquals("Nom des objets", ligne2.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne2.getNomTopoComp(), CANDIDAT2_NOM);
+//        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoRef(), REF_NATURE);
+//        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoComp(), CANDIDAT2_NATURE);
+//        Assert.assertEquals("Distance toponymique", ligne2.getDistance(0), 0.866, 0.001);
+//        Assert.assertEquals("Distance euclidienne", ligne2.getDistance(1), 452.187, 0.001);
+//        Assert.assertEquals("Distance sémantique", ligne2.getDistance(2), 0.333, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne2.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne2.isDecision(), "false");
+//        
+//        LigneResultat ligne3 = lres.get(3);
+//        Assert.assertEquals("Nom des objets", ligne3.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne3.getNomTopoComp(), CANDIDAT3_NOM);
+//        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoRef(), REF_NATURE);
+//        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoComp(), CANDIDAT3_NATURE);
+//        Assert.assertEquals("Distance toponymique", ligne3.getDistance(0), 0.0, 0.001);
+//        Assert.assertEquals("Distance euclidienne", ligne3.getDistance(1), 377.447, 0.001);
+//        Assert.assertEquals("Distance sémantique", ligne3.getDistance(2), 0.0, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne3.getProbaPignistiquePremier(), 1.0, 0.01);
+//        Assert.assertEquals("Decision", ligne3.isDecision(), "true");
+//        
+//        TableauResultatFrame tableauPanel = new TableauResultatFrame();
+//        tableauPanel.displayEnsFrame("tests", lres);
+//        int[] tab = tableauPanel.analyse();
+//        
+//        Assert.assertEquals("NB NA : ", tab[0], 0);
+//        Assert.assertEquals("NB Appariement : ", tab[1], 1);
+//        Assert.assertEquals("NB d'indécis : ", tab[2], 0);
+//
+//    }
+//    
+//    
+//    /**
+//     * Appariement 3 criteres dans l'ordre : géométrie + toponymie + sémantique
+//     * 
+//     * @throws Exception
+//     */
+//    public void testApp3Critere_2() throws Exception {
+//        
+//        AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
+//        evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
+//        
+//        Objet objRef = new PAIBDTopo();
+//        Objet objComp = new PAIBDCarto();
+//        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
+//    
+//        List<Critere> listCritere = new ArrayList<Critere>();
+//        
+//        // Critere géométrique
+//        DistanceEuclidienne dg = new DistanceEuclidienne();
+//        CritereGeom cg = new CritereGeom(dg);
+//        cg.setSeuil(100, 220);
+//        listCritere.add(cg);
+//        
+//        // Critere toponymique
+//        DistanceSamal ds = new DistanceSamal();
+//        CritereToponymique ct = new CritereToponymique(ds);
+//        ct.setMetadata(objRef, objComp);
+//        ct.setSeuil(0.6);
+//        listCritere.add(ct);
+//        
+//        // Critere sémantique
+//        DistanceWuPalmer dwp = new DistanceWuPalmer();
+//        CritereSemantique cs = new CritereSemantique(dwp);
+//        cs.setMetadata(objRef, objComp);
+//        cs.setSeuil(0.7);
+//        listCritere.add(cs);
+//        
+//        evidenceAlgoFusionCritere.setListCritere(listCritere);
+//        
+//        IPopulation<IFeature> candidatListe = new Population<IFeature>();
+//        candidatListe.add(getCandidat1());
+//        candidatListe.add(getCandidat2());
+//        candidatListe.add(getCandidat3());
+//        
+//        IFeature ref = getRef();
+//        
+//        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
+//        
+//        Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
+//        
+//        // NA
+//        LigneResultat ligne0 = lres.get(0);
+//        Assert.assertEquals("Nom des objets", ligne0.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne0.getNomTopoComp(), "NA");
+//        Assert.assertEquals("Prem proba pign", ligne0.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne0.isDecision(), "false");
+//        
+//        LigneResultat ligne1 = lres.get(1);
+//        Assert.assertEquals("Nom des objets", ligne1.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne1.getNomTopoComp(), CANDIDAT1_NOM);
+//        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoRef(), REF_NATURE);
+//        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoComp(), CANDIDAT1_NATURE);
+//        Assert.assertEquals(ligne1.getNomDistance(0), ligne1.getDistance(0), 245.889, 0.001);
+//        Assert.assertEquals(ligne1.getNomDistance(1), ligne1.getDistance(1), 0.857, 0.001);
+//        Assert.assertEquals(ligne1.getNomDistance(2), ligne1.getDistance(2), 0.333, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne1.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne1.isDecision(), "false");
+//        
+//        LigneResultat ligne2 = lres.get(2);
+//        Assert.assertEquals("Nom des objets", ligne2.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne2.getNomTopoComp(), CANDIDAT2_NOM);
+//        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoRef(), REF_NATURE);
+//        // Assert.assertEquals("Nature des objets", ligne2.getTypeTopoComp(), CANDIDAT2_NATURE);
+//        Assert.assertEquals(ligne2.getNomDistance(0), ligne2.getDistance(0), 452.187, 0.001);
+//        Assert.assertEquals(ligne2.getNomDistance(1), ligne2.getDistance(1), 0.866, 0.001);
+//        Assert.assertEquals(ligne2.getNomDistance(2), ligne2.getDistance(2), 0.333, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne2.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne2.isDecision(), "false");
+//        
+//        LigneResultat ligne3 = lres.get(3);
+//        Assert.assertEquals("Nom des objets", ligne3.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne3.getNomTopoComp(), CANDIDAT3_NOM);
+//        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoRef(), REF_NATURE);
+//        // Assert.assertEquals("Nature des objets", ligne3.getTypeTopoComp(), CANDIDAT3_NATURE);
+//        Assert.assertEquals(ligne3.getNomDistance(0), ligne3.getDistance(0), 377.447, 0.001);
+//        Assert.assertEquals(ligne3.getNomDistance(1), ligne3.getDistance(1), 0.0, 0.001);
+//        Assert.assertEquals(ligne3.getNomDistance(2), ligne3.getDistance(2), 0.0, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne3.getProbaPignistiquePremier(), 1.0, 0.01);
+//        Assert.assertEquals("Decision", ligne3.isDecision(), "true");
+//        
+//        TableauResultatFrame tableauPanel = new TableauResultatFrame();
+//        tableauPanel.displayEnsFrame("tests", lres);
+//        int[] tab = tableauPanel.analyse();
+//        
+//        Assert.assertEquals("NB NA : ", tab[0], 0);
+//        Assert.assertEquals("NB Appariement : ", tab[1], 1);
+//        Assert.assertEquals("NB d'indécis : ", tab[2], 0);
+//
+//    }
+//    
+//    /**
+//     * Appariement 3 criteres dans l'ordre : géométrie + sémantique + toponymie
+//     * 
+//     * @throws Exception
+//     */
+//    public void testApp3Critere_3() throws Exception {
+//        
+//        AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
+//        evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
+//        
+//        Objet objRef = new PAIBDTopo();
+//        Objet objComp = new PAIBDCarto();
+//        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
+//    
+//        List<Critere> listCritere = new ArrayList<Critere>();
+//        
+//        // Critere géométrique
+//        DistanceEuclidienne dg = new DistanceEuclidienne();
+//        CritereGeom cg = new CritereGeom(dg);
+//        cg.setSeuil(100, 220);
+//        listCritere.add(cg);
+//        
+//        // Critere sémantique
+//        DistanceWuPalmer dwp = new DistanceWuPalmer();
+//        CritereSemantique cs = new CritereSemantique(dwp);
+//        cs.setMetadata(objRef, objComp);
+//        cs.setSeuil(0.7);
+//        listCritere.add(cs);
+//        
+//        // Critere toponymique
+//        DistanceSamal ds = new DistanceSamal();
+//        CritereToponymique ct = new CritereToponymique(ds);
+//        ct.setMetadata(objRef, objComp);
+//        ct.setSeuil(0.6);
+//        listCritere.add(ct);
+//        
+//        evidenceAlgoFusionCritere.setListCritere(listCritere);
+//        
+//        IPopulation<IFeature> candidatListe = new Population<IFeature>();
+//        candidatListe.add(getCandidat1());
+//        candidatListe.add(getCandidat2());
+//        candidatListe.add(getCandidat3());
+//        
+//        IFeature ref = getRef();
+//        
+//        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
+//        
+//        Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
+//        
+//        // NA
+//        LigneResultat ligne0 = lres.get(0);
+//        Assert.assertEquals("Nom des objets", ligne0.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne0.getNomTopoComp(), "NA");
+//        Assert.assertEquals("Prem proba pign", ligne0.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne0.isDecision(), "false");
+//        
+//        LigneResultat ligne1 = lres.get(1);
+//        Assert.assertEquals("Nom des objets", ligne1.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne1.getNomTopoComp(), CANDIDAT1_NOM);
+//        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoRef(), REF_NATURE);
+//        // Assert.assertEquals("Nature des objets", ligne1.getTypeTopoComp(), CANDIDAT1_NATURE);
+//        Assert.assertEquals(ligne1.getNomDistance(0), ligne1.getDistance(0), 245.889, 0.001);
+//        Assert.assertEquals(ligne1.getNomDistance(1), ligne1.getDistance(1), 0.333, 0.001);
+//        Assert.assertEquals(ligne1.getNomDistance(2), ligne1.getDistance(2), 0.857, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne1.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne1.isDecision(), "false");
+//        
+//        LigneResultat ligne2 = lres.get(2);
+//        Assert.assertEquals("Nom des objets", ligne2.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne2.getNomTopoComp(), CANDIDAT2_NOM);
+//        //Assert.assertEquals("Nature des objets", ligne2.getTypeTopoRef(), REF_NATURE);
+//        //Assert.assertEquals("Nature des objets", ligne2.getTypeTopoComp(), CANDIDAT2_NATURE);
+//        Assert.assertEquals(ligne2.getNomDistance(0), ligne2.getDistance(0), 452.187, 0.001);
+//        Assert.assertEquals(ligne2.getNomDistance(1), ligne2.getDistance(1), 0.333, 0.001);
+//        Assert.assertEquals(ligne2.getNomDistance(2), ligne2.getDistance(2), 0.866, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne2.getProbaPignistiquePremier(), 0.0, 0.01);
+//        Assert.assertEquals("Decision", ligne2.isDecision(), "false");
+//        
+//        LigneResultat ligne3 = lres.get(3);
+//        Assert.assertEquals("Nom des objets", ligne3.getNomTopoRef(), REF_NOM);
+//        Assert.assertEquals("Nom des objets", ligne3.getNomTopoComp(), CANDIDAT3_NOM);
+//        //Assert.assertEquals("Nature des objets", ligne3.getTypeTopoRef(), REF_NATURE);
+//        //Assert.assertEquals("Nature des objets", ligne3.getTypeTopoComp(), CANDIDAT3_NATURE);
+//        Assert.assertEquals(ligne3.getNomDistance(0), ligne3.getDistance(0), 377.447, 0.001);
+//        Assert.assertEquals(ligne3.getNomDistance(1), ligne3.getDistance(1), 0.0, 0.001);
+//        Assert.assertEquals(ligne3.getNomDistance(2), ligne3.getDistance(2), 0.0, 0.001);
+//        Assert.assertEquals("Prem proba pign", ligne3.getProbaPignistiquePremier(), 1.0, 0.01);
+//        Assert.assertEquals("Decision", ligne3.isDecision(), "true");
+//        
+//        TableauResultatFrame tableauPanel = new TableauResultatFrame();
+//        tableauPanel.displayEnsFrame("tests", lres);
+//        int[] tab = tableauPanel.analyse();
+//        
+//        Assert.assertEquals("NB NA : ", tab[0], 0);
+//        Assert.assertEquals("NB Appariement : ", tab[1], 1);
+//        Assert.assertEquals("NB d'indécis : ", tab[2], 0);
+//
+//    }
+//
+//    
     /**
      * Appariement 2 criteres dans l'ordre : géométrie + toponymie
      * 
@@ -531,8 +527,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
+        tableauPanel.displayEnsFrame("tests", lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);
@@ -616,8 +611,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
+        tableauPanel.displayEnsFrame("tests", lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);
@@ -691,8 +685,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "false");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
+        tableauPanel.displayEnsFrame("tests", lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 1);
@@ -766,8 +759,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.setListeResultat(lres);
-        tableauPanel.initResultat();
+        tableauPanel.displayEnsFrame("tests", lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);

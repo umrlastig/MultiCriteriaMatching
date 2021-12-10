@@ -24,6 +24,7 @@ import fr.ign.cogit.geoxygene.api.feature.IFeature;
 public interface Critere {
   
   public String getNom();
+  public String getSeuil();
   public void setFeature(IFeature featureRef, IFeature featureComp);
   public void checkSommeMasseEgale1(double[] tableau) throws Exception;
   public Distance getDistance();

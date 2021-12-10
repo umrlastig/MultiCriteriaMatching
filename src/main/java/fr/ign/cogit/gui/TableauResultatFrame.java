@@ -37,7 +37,7 @@ import javax.swing.table.TableModel;
 
 import com.ibm.icu.text.SimpleDateFormat;
 
-import fr.ign.cogit.dao.LigneResultat;
+import fr.ign.cogit.appariement.LigneResultat;
 
 /**
  * 

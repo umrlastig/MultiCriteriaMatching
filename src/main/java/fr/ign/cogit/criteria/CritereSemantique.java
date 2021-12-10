@@ -47,6 +47,10 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 	public void setSeuil(double seuil) {
 		this.seuil = seuil;
 	}
+	
+	public String getSeuil() {
+		return "[" + this.seuil + "]";
+	}
 
 	/**
 	 * Retourne la masse de croyance.

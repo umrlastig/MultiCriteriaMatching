@@ -31,6 +31,10 @@ public class CritereGeom extends CritereAbstract implements Critere {
 		this.seuilT1 = t1;
 		this.seuilT2 = t2;
 	}
+	
+	public String getSeuil() {
+		return "[" + this.seuilT1 + ", " + this.seuilT2 + "]";
+	}
   
 	public void setFeature(IFeature featureRef, IFeature featureComp) {
 		super.setFeature(featureRef, featureComp);
