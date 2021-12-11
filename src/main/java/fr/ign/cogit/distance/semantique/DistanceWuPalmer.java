@@ -33,9 +33,11 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
 	
 	/** Ontologie. */
 	// private OntModel owlmodel;
+	private String uri;
 	private OntoText ontoText;
     
     public DistanceWuPalmer(String uri) {
+    	this.uri = uri;
         try {
         	OntModel owlmodel = ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
         	owlmodel.read(uri, "RDF/XML");
@@ -51,16 +53,19 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
         float d = (float)(1 - mesureSimilariteWuPalmer(this.attrNameSemRef, this.attrNameSemComp));
         // System.out.println("Distance WP " + this.attrNameSemRef.toLowerCase() 
         //          + "-" + this.attrNameSemComp.toLowerCase() + " = " + d);
+        System.out.println(d);
         return d;
     }
     
     public double mesureSimilariteWuPalmer(String uri1, String uri2) {
     	float scoreMax = -1;
 		
-		// System.out.println();
-		// System.out.println(uri1);
-		// System.out.println(uri2);
-		// System.out.println("--------------------------------------------------------------");
+    	 System.out.println();
+    	 System.out.println("--------------------------------------------------------------");
+    	 System.out.println(uri1);
+    	 System.out.println(uri2);
+    	// System.out.println(ontoText.getOntoAPlat().size());
+		
 		// hauteur entre racine et noeud
 		int h1 = 0;
 		int h2 = 0;
@@ -68,34 +73,36 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
 		List<String> hierarchie2 = null;
 		
 		for (String enfant1 : ontoText.getOntoAPlat().keySet()) {
-
 			List<List<String>> hierarchies1 = ontoText.getOntoAPlat().get(enfant1);
 			for (List<String> branche1 : hierarchies1) {
-
 				// uri1 est dans cette hiérarchie ?
 				for (int n1 = 0; n1 < branche1.size(); n1++) {
 					String noeud1 = branche1.get(n1);
 					if (uri1.contentEquals(noeud1)) {
-						
 						h1 = branche1.size() - n1;
-						hierarchie1 = branche1;
+						hierarchie1 = cloneHierarchie(branche1);
 						hierarchie1.subList(0, n1).clear();
 						// System.out.println("-"+hierarchie1);
-						
+
 						for (String enfant2 : ontoText.getOntoAPlat().keySet()) {
+							if (enfant2.contentEquals("http://www.owl-ontologies.com/Ontology1176999717.owl#cime"))
+								System.out.println("enfant2=" + enfant2);
 							List<List<String>> hierarchies2 = ontoText.getOntoAPlat().get(enfant2);
 							for (List<String> branche2 : hierarchies2) {
+								if (enfant2.contentEquals("http://www.owl-ontologies.com/Ontology1176999717.owl#cime"))
+									System.out.println("----" + branche2);
 								// uri2 est dans cette hiérarchie ?
 								for (int n2 = 0; n2 < branche2.size(); n2++) {
 									String noeud2 = branche2.get(n2);
+									// System.out.println("----" + noeud2);
 									if (uri2.contentEquals(noeud2)) {
 										h2 = branche2.size() - n2;
-										hierarchie2 = branche2;
+										hierarchie2 = cloneHierarchie(branche2);
 										hierarchie2.subList(0, n2).clear();
 										// System.out.println("    +"+hierarchie2);
 										float score = getScore(hierarchie1, hierarchie2, h1, h2);
 										// System.out.println(hierarchie1 + "," + hierarchie2 + "," + score);
-										// System.out.println(score);
+										// System.out.println(h1 + "-" + h2 + "-" + score);
 										if (score > scoreMax) {
 											scoreMax = score;
 										}
@@ -107,9 +114,17 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
 				}
 			}
 		}
-		
+		// System.out.println(scoreMax);
 		return scoreMax;
 
+    }
+    
+    private List<String> cloneHierarchie(List<String> hierarchie) {
+    	List<String> h = new ArrayList<String>();
+    	for (String elt : hierarchie) {
+    		h.add(elt);
+    	}
+    	return h;
     }
     
     private float getScore(List<String> hierarchie1, List<String> hierarchie2, int h1, int h2) {

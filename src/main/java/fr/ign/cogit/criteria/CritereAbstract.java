@@ -13,10 +13,11 @@
  */
 package fr.ign.cogit.criteria;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
 
+import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.distance.Distance;
-import fr.ign.cogit.geoxygene.api.feature.IFeature;
+
 
 /**
  * Criteria class.
@@ -30,14 +31,14 @@ public abstract class CritereAbstract implements Critere {
   
 	protected Distance distance;
   
-	protected IFeature featureComp;
-	protected IFeature featureRef;
+	protected Feature featureComp;
+	protected Feature featureRef;
   
 	public CritereAbstract(Distance distance) {
 		this.distance = distance;
 	}
   
-	public void setFeature(IFeature featureRef, IFeature featureComp) {
+	public void setFeature(Feature featureRef, Feature featureComp) {
 		this.featureRef = featureRef;
 		this.featureComp = featureComp;
 	}

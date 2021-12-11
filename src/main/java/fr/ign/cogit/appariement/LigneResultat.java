@@ -13,7 +13,7 @@
  */
 package fr.ign.cogit.appariement;
 
-import fr.ign.cogit.geoxygene.api.spatial.geomroot.IGeometry;
+import org.locationtech.jts.geom.Geometry;
 
 /**
  * Data object to return feature result in matching process.
@@ -40,8 +40,8 @@ public class LigneResultat {
   private String isDecision;
   // private double conflit;
   
-  private IGeometry geomRef;
-  private IGeometry geomComp;
+  private Geometry geomRef;
+  private Geometry geomComp;
   
   
   /**
@@ -68,16 +68,16 @@ public class LigneResultat {
       this.nomsDistance = nomsDistance;
   }
   
-  public void setGeom(IGeometry geomRef, IGeometry geomComp) {
+  public void setGeom(Geometry geomRef, Geometry geomComp) {
 	  this.geomRef = geomRef;
 	  this.geomComp = geomComp;
   }
 
-  public IGeometry getGeomRef() {
+  public Geometry getGeomRef() {
     return this.geomRef;
   }
   
-  public IGeometry getGeomComp() {
+  public Geometry getGeomComp() {
     return this.geomComp;
   }
   
@@ -153,4 +153,10 @@ public class LigneResultat {
       return "";
   }
   
+  @Override
+  public String toString() {
+	  return "[" + this.getNomDistance(0) + ":" + this.getDistance(0) + ", " 
+			  + this.getNomDistance(1) + ":" + this.getDistance(1) + ", " 
+			  + this.getNomDistance(2) + ":" + this.getDistance(2) + "]";
+  }
 }

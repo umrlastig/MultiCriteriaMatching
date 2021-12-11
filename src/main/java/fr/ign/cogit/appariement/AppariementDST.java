@@ -21,8 +21,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.log4j.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import fr.ign.cogit.criteria.Critere;
 import fr.ign.cogit.metadata.Objet;
@@ -32,8 +32,6 @@ import fr.ign.cogit.evidence.massvalues.MassPotential;
 import fr.ign.cogit.evidence.variable.Variable;
 import fr.ign.cogit.evidence.variable.VariableFactory;
 import fr.ign.cogit.evidence.variable.VariableSet;
-import fr.ign.cogit.geoxygene.api.feature.IFeature;
-import fr.ign.cogit.geoxygene.api.feature.IPopulation;
 
 
 
@@ -84,9 +82,9 @@ public class AppariementDST {
    *      "http://recherche.ign.fr/labos/cogit/pdf/THESES/OLTEANU/TheseOlteanu.pdf"
    *      >The PhD Thesis of Ana-Maria Olteanu-Raimond<>
    */
-public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeature> candidatListe) throws Exception {
+  public List<LigneResultat> appariementObjet(Feature featRef, List<Feature> candidatListe) throws Exception {
 
-  LOGGER.info("----- DEBUT APPARIEMENT --------");
+	  LOGGER.info("----- DEBUT APPARIEMENT --------");
   
   String identifiant = featRef.getAttribute(objRef.getCle()).toString();
   if (featRef.getAttribute(objRef.getNom()) != null) {
@@ -103,7 +101,7 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
 
   // The variables considerer (match with Ci or doesn't match with Ci)
   Variable<String> defCadreDiscernement = vf.newVariable();
-  for (IFeature candidat : candidatListe) {
+  for (Feature candidat : candidatListe) {
     defCadreDiscernement.add(candidat.getAttribute(objComp.getCle()).toString());
   }
   defCadreDiscernement.add("NA");
@@ -111,14 +109,14 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
   // The set of all the decision variables (we have only one here)
   VariableSet<String> cadreDiscernement = new VariableSet<String>(vf);
   cadreDiscernement.add(defCadreDiscernement);
-  LOGGER.trace("Configurations = " + cadreDiscernement);
+  LOGGER.log(Level.FINE, "Configurations = " + cadreDiscernement);
 
   /*
    * Each variable configuration is encapsulated in an indexed object
    * called Configuration to avoid ambiguities.
    */
   Map<String, Configuration<String>> configCadreDiscernement = new HashMap<String, Configuration<String>>();
-  for (IFeature candidat : candidatListe) {
+  for (Feature candidat : candidatListe) {
     Configuration<String> cc = new Configuration<String>(cadreDiscernement, 
         Arrays.asList(candidat.getAttribute(objComp.getCle()).toString()));
     configCadreDiscernement.put(candidat.getAttribute(objComp.getCle()).toString(), cc);
@@ -132,14 +130,14 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
    */
   Map<String, ConfigurationSet<String>> listeAppC = new HashMap<String, ConfigurationSet<String>>();
   Map<String, ConfigurationSet<String>> listeNonAppC = new HashMap<String, ConfigurationSet<String>>();
-  for (IFeature candidat : candidatListe) {
+  for (Feature candidat : candidatListe) {
     String id = candidat.getAttribute(objComp.getCle()).toString();
     ConfigurationSet<String> appC = new ConfigurationSet<String>(cadreDiscernement);
     appC.add(configCadreDiscernement.get(candidat.getAttribute(objComp.getCle()).toString()));
     listeAppC.put(id, appC);
 
     ConfigurationSet<String> nonAppC = new ConfigurationSet<String>(cadreDiscernement);
-    for (IFeature candidat2 : candidatListe) {
+    for (Feature candidat2 : candidatListe) {
       if (!candidat.getAttribute(objComp.getCle()).equals(candidat2.getAttribute(objComp.getCle()))) {
         nonAppC.add(configCadreDiscernement.get(candidat2.getAttribute(objComp.getCle()).toString()));
       }
@@ -162,7 +160,7 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
       listeMasseCandCrits.put(c, listeMasseCand1Crit);
   }
   
-  for (IFeature candidat : candidatListe) {
+  for (Feature candidat : candidatListe) {
     
       String id = candidat.getAttribute(objComp.getCle()).toString();
       LOGGER.info("Feature : " + candidat.getAttribute(objComp.getNom()));
@@ -206,7 +204,7 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
   Map<String, Set<MassPotential<String>>> listeMasseCand = new HashMap<String, Set<MassPotential<String>>>();
   Set<MassPotential<String>> cfusion = new HashSet<MassPotential<String>>();
   Map<String, MassPotential<String>> combinationDesCriteresParCandidat = new HashMap<String, MassPotential<String>>();
-  for (IFeature candidat : candidatListe) {
+  for (Feature candidat : candidatListe) {
     String id = candidat.getAttribute(objComp.getCle()).toString();
     // LOGGER.info("id = " + id);
 
@@ -247,7 +245,7 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
   int compteurC = 0;
 
   // Affiche les candidats et leur score
-  for (IFeature candidat : candidatListe) {
+  for (Feature candidat : candidatListe) {
     String id = candidat.getAttribute(objComp.getCle()).toString();
     String nomCandidat = "";
     if (candidat.getAttribute(objComp.getNom()) != null && candidat.getAttribute(objComp.getNom()).toString() != "") {
@@ -287,7 +285,7 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
   List<Double> listPignistic = new ArrayList<Double>();
   listPignistic.add(pignisticNA);
 
-  for (IFeature candidat : candidatListe) {
+  for (Feature candidat : candidatListe) {
     
     String id = candidat.getAttribute(objComp.getCle()).toString();
     compteurC++;
@@ -363,7 +361,7 @@ public List<LigneResultat> appariementObjet(IFeature featRef, IPopulation<IFeatu
       
     } else {
 //      LOGGER.info("On a un bon candidat : " + idMax + "(" + max + ")");
-      LOGGER.trace("diff = " + difference);
+      LOGGER.log(Level.FINE, "diff = " + difference);
       for (LigneResultat res2 : listeRes) {
         res2.initProbaPignistiqueSecond(difference);
         if (idMax.equals(res2.getIdTopoComp())) {

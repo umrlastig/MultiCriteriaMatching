@@ -18,8 +18,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.Point;
+
 import fr.ign.cogit.appariement.AppariementDST;
+import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.appariement.LigneResultat;
+import fr.ign.cogit.appli.ExportToCSV;
+import fr.ign.cogit.appli.TableauResultatFrame;
 import fr.ign.cogit.metadata.Objet;
 import fr.ign.cogit.metadata.PAIBDCarto;
 import fr.ign.cogit.metadata.PAIBDTopo;
@@ -30,18 +37,7 @@ import fr.ign.cogit.criteria.CritereToponymique;
 import fr.ign.cogit.distance.geom.DistanceEuclidienne;
 import fr.ign.cogit.distance.semantique.DistanceWuPalmer;
 import fr.ign.cogit.distance.text.DistanceSamal;
-import fr.ign.cogit.geoxygene.api.feature.IFeature;
-import fr.ign.cogit.geoxygene.api.feature.IPopulation;
-import fr.ign.cogit.geoxygene.api.spatial.geomprim.IPoint;
-import fr.ign.cogit.geoxygene.feature.DefaultFeature;
-import fr.ign.cogit.geoxygene.feature.Population;
-import fr.ign.cogit.geoxygene.feature.SchemaDefaultFeature;
-import fr.ign.cogit.geoxygene.schema.schemaConceptuelISOJeu.AttributeType;
-import fr.ign.cogit.geoxygene.schema.schemaConceptuelISOJeu.FeatureType;
-import fr.ign.cogit.geoxygene.spatial.coordgeom.DirectPosition;
-import fr.ign.cogit.geoxygene.spatial.geomprim.GM_Point;
-import fr.ign.cogit.gui.ExportToCSV;
-import fr.ign.cogit.gui.TableauResultatFrame;
+
 
 
 /**
@@ -49,6 +45,8 @@ import fr.ign.cogit.gui.TableauResultatFrame;
  * @author M-D Van Damme
  */
 public class MainSiberie {
+	
+	GeometryFactory factory;
     
     private static final String REF_NOM = "col de Sibérie";
     private static final String REF_NATURE = "Col";
@@ -70,12 +68,9 @@ public class MainSiberie {
     private static final double CANDIDAT3_X = 826596.7;
     private static final double CANDIDAT3_Y = 6574083.4;
 
-    
-    private static SchemaDefaultFeature schemaCandidat = null;;
-    
-    
-    
-    
+    public MainSiberie() {
+    	factory = new GeometryFactory();
+    }
     
     /**
      * Appariement 3 criteres dans l'ordre : toponymie + géométrie + sémantique
@@ -107,7 +102,7 @@ public class MainSiberie {
         listCritere.add(cg);
         
         // Critere sémantique
-        DistanceWuPalmer dwp = new DistanceWuPalmer("./data/ontology/GeOnto2.owl");
+        DistanceWuPalmer dwp = new DistanceWuPalmer("./data/ontology/GeOnto.owl");
         CritereSemantique cs = new CritereSemantique(dwp);
         cs.setMetadata(objRef, objComp);
         cs.setSeuil(0.7);
@@ -115,12 +110,12 @@ public class MainSiberie {
         
         evidenceAlgoFusionCritere.setListCritere(listCritere);
         
-        IPopulation<IFeature> candidatListe = new Population<IFeature>();
+        List<Feature> candidatListe = new ArrayList<Feature>();
         candidatListe.add(getCandidat1());
         candidatListe.add(getCandidat2());
         candidatListe.add(getCandidat3());
         
-        IFeature ref = getRef();
+        Feature ref = getRef();
         
         List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
         
@@ -132,14 +127,13 @@ public class MainSiberie {
         System.out.println("NB d'indécis : " + tab[2]);
         // System.out.println("NB sans candidat : " + nbSansCandidat);
         
-        ExportToCSV.exportAppariement(listCritere, evidenceAlgoFusionCritere.getSeuilIndecision(), lres, "./data/resultat/Rando/appariement");
+        // ExportToCSV.exportAppariement(listCritere, evidenceAlgoFusionCritere.getSeuilIndecision(), lres, "./data/resultat/Rando/appariement");
     }
 
     
     public static void main(String[] args) {
         MainSiberie m = new MainSiberie();
         try {
-            m.initMainSiberie();
             m.doAppariement();
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,89 +141,45 @@ public class MainSiberie {
     }
     
     
-    public void initMainSiberie() {
-        
-        // On initialise les schémas et les feature type  
-        
-        // Candidat
-        FeatureType featureTypeCandidat = new FeatureType();
-        featureTypeCandidat.setTypeName("Candidat");
-        featureTypeCandidat.setGeometryType(IPoint.class);
-                        
-        AttributeType idPoint = new AttributeType("cleabs", "String");
-        AttributeType nomPoint = new AttributeType("nom", "String");
-        AttributeType naturePoint = new AttributeType("nature", "String");
-        
-        featureTypeCandidat.addFeatureAttribute(idPoint);
-        featureTypeCandidat.addFeatureAttribute(nomPoint);
-        featureTypeCandidat.addFeatureAttribute(naturePoint);
-            
-        // Création d'un schéma associé au featureType
-        schemaCandidat = new SchemaDefaultFeature();
-        
-        featureTypeCandidat.setSchema(schemaCandidat);
-        
-        Map<Integer, String[]> attLookup = new HashMap<Integer, String[]>(0);
-        attLookup.put(new Integer(0), new String[] { idPoint.getNomField(), idPoint.getMemberName() });
-        attLookup.put(new Integer(1), new String[] { nomPoint.getNomField(), nomPoint.getMemberName() });
-        attLookup.put(new Integer(2), new String[] { naturePoint.getNomField(), naturePoint.getMemberName() });
-        schemaCandidat.setAttLookup(attLookup);
-        
+    
+    
+    
+    private Feature getRef() {
+    	Point pt = factory.createPoint(new Coordinate(REF_X, REF_Y));
+		Feature defaultFeature = new Feature(pt);
+		defaultFeature.addAttribut("cleabs", "1");
+		defaultFeature.addAttribut("nom", REF_NOM);
+		defaultFeature.addAttribut("nature", REF_NATURE);
+		return defaultFeature;
     }
     
     
-    private IFeature getRef() {
-        
-        DefaultFeature defaultFeature = new DefaultFeature();
-        defaultFeature.setFeatureType(schemaCandidat.getFeatureType());
-        defaultFeature.setSchema(schemaCandidat);
-        
-        Object[] attributes = new Object[] { "1", REF_NOM, REF_NATURE };
-        defaultFeature.setAttributes(attributes);
-        defaultFeature.setGeom(new GM_Point(new DirectPosition(REF_X, REF_Y)));
-        
-        return defaultFeature;
+    private Feature getCandidat1() {
+    	Point pt = factory.createPoint(new Coordinate(CANDIDAT1_X, CANDIDAT1_Y));
+		Feature defaultFeature = new Feature(pt);
+		defaultFeature.addAttribut("cleabs", "1");
+		defaultFeature.addAttribut("nom", CANDIDAT1_NOM);
+		defaultFeature.addAttribut("nature", CANDIDAT1_NATURE);
+		return defaultFeature;
     }
     
     
-    private IFeature getCandidat1() {
-        
-        DefaultFeature defaultFeature = new DefaultFeature();
-        defaultFeature.setFeatureType(schemaCandidat.getFeatureType());
-        defaultFeature.setSchema(schemaCandidat);
-        
-        Object[] attributes = new Object[] { "1", CANDIDAT1_NOM, CANDIDAT1_NATURE };
-        defaultFeature.setAttributes(attributes);
-        defaultFeature.setGeom(new GM_Point(new DirectPosition(CANDIDAT1_X, CANDIDAT1_Y)));
-        
-        return defaultFeature;
+    private Feature getCandidat2() {
+    	Point pt = factory.createPoint(new Coordinate(CANDIDAT2_X, CANDIDAT2_Y));
+		Feature defaultFeature = new Feature(pt);
+		defaultFeature.addAttribut("cleabs", "2");
+		defaultFeature.addAttribut("nom", CANDIDAT2_NOM);
+		defaultFeature.addAttribut("nature", CANDIDAT2_NATURE);
+		return defaultFeature;
     }
     
     
-    private IFeature getCandidat2() {
-        
-        DefaultFeature defaultFeature = new DefaultFeature();
-        defaultFeature.setFeatureType(schemaCandidat.getFeatureType());
-        defaultFeature.setSchema(schemaCandidat);
-        
-        Object[] attributes = new Object[] { "2", CANDIDAT2_NOM, CANDIDAT2_NATURE };
-        defaultFeature.setAttributes(attributes);
-        defaultFeature.setGeom(new GM_Point(new DirectPosition(CANDIDAT2_X, CANDIDAT2_Y)));
-        
-        return defaultFeature;
-    }
-    
-    
-    private IFeature getCandidat3() {
-        
-        DefaultFeature defaultFeature = new DefaultFeature();
-        defaultFeature.setFeatureType(schemaCandidat.getFeatureType());
-        defaultFeature.setSchema(schemaCandidat);
-        
-        Object[] attributes = new Object[] { "3", CANDIDAT3_NOM, CANDIDAT3_NATURE };
-        defaultFeature.setAttributes(attributes);
-        defaultFeature.setGeom(new GM_Point(new DirectPosition(CANDIDAT3_X, CANDIDAT3_Y)));
-        
-        return defaultFeature;
+    private Feature getCandidat3() {
+    	Point pt = factory.createPoint(new Coordinate(CANDIDAT3_X, CANDIDAT3_Y));
+		Feature defaultFeature = new Feature(pt);
+		defaultFeature.addAttribut("cleabs", "3");
+		defaultFeature.addAttribut("nom", CANDIDAT3_NOM);
+		defaultFeature.addAttribut("nature", CANDIDAT3_NATURE);
+		return defaultFeature;
     }
 }

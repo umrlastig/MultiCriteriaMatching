@@ -35,6 +35,14 @@ public class OntoText {
 		enfantParents = new HashMap<String, List<String>>();
 		loadOntologyOwl();
 		miseAPlat();
+		
+		for (String key : ontoAPlat.keySet()) {
+			List<List<String>> hierarchies = ontoAPlat.get(key);
+			for (List<String> hierarchie : hierarchies) {
+				System.out.println(key + ":" + hierarchie);
+			}
+		}
+		// System.out.println("===");
 	}
 	
 	public Map<String, List<List<String>>> getOntoAPlat() {
@@ -91,7 +99,6 @@ public class OntoText {
 	
 	
 	private void miseAPlat() {
-    	
 		// On boucle sur tous les enfant-parent
     	for (String enfant : enfantParents.keySet()) {
     	
@@ -109,13 +116,6 @@ public class OntoText {
     				
     		ontoAPlat.put(enfant, hierarchies);
     		doAPlat(enfant, enfant, 1);
-		
-    		/* 
-    		for (List<String> hierarchie : hierarchies) {
-    			System.out.println(enfant + ":" + hierarchie);
-    		}
-    		System.out.println("===");
-    		*/
     	}
     }
 	
@@ -166,11 +166,11 @@ public class OntoText {
 				continue;
 			}
 			
-			if (cptG < 20) {
+			if (cptG < 10) {
 				doAPlat(parent, feuille, cptG+1);
-			} else {
+			} /*else {
 				System.out.println(parent + "--" + feuille);
-			}
+			}*/
 			// List<String> hierarchie = getHierarchie(feuille);
 			// hierarchies.add(hierarchie);
 			// System.out.println(feuille + "--" + hierarchie);

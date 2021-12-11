@@ -13,8 +13,9 @@
  */
 package fr.ign.cogit.criteria;
 
+import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.distance.Distance;
-import fr.ign.cogit.geoxygene.api.feature.IFeature;
+
 
 /**
  * Interface to implement criteria.
@@ -25,7 +26,7 @@ public interface Critere {
   
   public String getNom();
   public String getSeuil();
-  public void setFeature(IFeature featureRef, IFeature featureComp);
+  public void setFeature(Feature featureRef, Feature featureComp);
   public void checkSommeMasseEgale1(double[] tableau) throws Exception;
   public Distance getDistance();
   public double[] getMasse() throws Exception;

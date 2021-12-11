@@ -11,7 +11,6 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<geoxygene.noyau.version>1.9-SNAPSHOT</geoxygene.noyau.version>
 	</properties>
 
 	<build>
@@ -50,15 +49,15 @@
 			<artifactId>evidence4j</artifactId>
 			<version>1.1-SNAPSHOT</version>
 			<scope>system</scope>
-            <systemPath>${project.basedir}/lib/evidence4j-1.1-SNAPSHOT.jar</systemPath>
+			<systemPath>${project.basedir}/lib/evidence4j-1.1-SNAPSHOT.jar</systemPath>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
-		<!-- <dependency> <groupId>edu.stanford</groupId> <artifactId>protege-owl</artifactId> <version>3.2.1</version> </dependency> -->
+
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
@@ -66,21 +65,10 @@
 			<type>pom</type>
 		</dependency>
 
-		<!-- GEOXYGENE -->
 		<dependency>
-			<groupId>fr.ign.cogit</groupId>
-			<artifactId>geoxygene-api</artifactId>
-			<version>${geoxygene.noyau.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.ign.cogit</groupId>
-			<artifactId>geoxygene-spatial</artifactId>
-			<version>${geoxygene.noyau.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.ign.cogit</groupId>
-			<artifactId>geoxygene-feature</artifactId>
-			<version>${geoxygene.noyau.version}</version>
+			<groupId>org.locationtech.jts</groupId>
+			<artifactId>jts-core</artifactId>
+			<version>1.18.2</version>
 		</dependency>
 
 		<dependency>

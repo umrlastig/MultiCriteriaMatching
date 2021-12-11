@@ -14,11 +14,11 @@
 package fr.ign.cogit.distance.geom;
 
 import fr.ign.cogit.distance.Distance;
-import fr.ign.cogit.geoxygene.api.spatial.coordgeom.ILineString;
-import fr.ign.cogit.geoxygene.spatial.coordgeom.GM_LineString;
-import fr.ign.cogit.geoxygene.spatial.geomaggr.GM_MultiCurve;
-import fr.ign.cogit.geoxygene.util.algo.JtsUtil;
-import fr.ign.cogit.geoxygene.util.algo.MesureOrientation;
+//import fr.ign.cogit.geoxygene.api.spatial.coordgeom.ILineString;
+//import fr.ign.cogit.geoxygene.spatial.coordgeom.GM_LineString;
+//import fr.ign.cogit.geoxygene.spatial.geomaggr.GM_MultiCurve;
+//import fr.ign.cogit.geoxygene.util.algo.JtsUtil;
+//import fr.ign.cogit.geoxygene.util.algo.MesureOrientation;
 
 /**
  * 
@@ -28,7 +28,7 @@ public class DistanceEcartOrientation extends DistanceAbstractGeom implements Di
 
 	@Override
 	public double getDistance() {
-		if (this.geomRef instanceof ILineString && this.geomComp instanceof ILineString) {
+		/*if (this.geomRef instanceof ILineString && this.geomComp instanceof ILineString) {
 
 			ILineString geomLigneRef = (ILineString) this.geomRef;
 			MesureOrientation mesure = new MesureOrientation(geomLigneRef);
@@ -92,9 +92,9 @@ public class DistanceEcartOrientation extends DistanceAbstractGeom implements Di
 		} else {
 			System.out.println(this.geomRef);
 			System.out.println(this.geomComp.getClass());
-			System.out.println("!!!!!!!!!!!!!!!!!!!!!");
+			System.out.println("!!!!!!!!!!!!!!!!!!!!!");*/
 			return Float.MAX_VALUE;
-		}
+//		}
 	}
 
 	@Override

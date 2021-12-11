@@ -13,9 +13,12 @@
  */
 package fr.ign.cogit.criteria;
 
+import java.util.logging.Level;
+
+import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.distance.Distance;
 import fr.ign.cogit.distance.geom.DistanceAbstractGeom;
-import fr.ign.cogit.geoxygene.api.feature.IFeature;
+
 
 /**
  * 
@@ -34,7 +37,7 @@ public class CritereOrientation extends CritereAbstract implements Critere {
 		return "[" + this.seuilAngle + "]";
 	}
   
-	public void setFeature(IFeature featureRef, IFeature featureComp) {
+	public void setFeature(Feature featureRef, Feature featureComp) {
 		super.setFeature(featureRef, featureComp);
 	}
   
@@ -63,7 +66,7 @@ public class CritereOrientation extends CritereAbstract implements Critere {
     try {
       checkSommeMasseEgale1(tableau);
     } catch (Exception e) {
-      LOGGER.error("Erreur 'Somme des masses' pour la distance orientation : " + valeurAngle);
+      LOGGER.log(Level.SEVERE, "Erreur 'Somme des masses' pour la distance orientation : " + valeurAngle);
       e.printStackTrace();
       throw e;
     }

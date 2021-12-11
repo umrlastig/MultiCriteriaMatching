@@ -13,8 +13,9 @@
  */
 package fr.ign.cogit.distance.geom;
 
+import org.locationtech.jts.geom.Geometry;
+
 import fr.ign.cogit.distance.Distance;
-import fr.ign.cogit.geoxygene.api.spatial.geomroot.IGeometry;
 
 /**
  * 
@@ -22,10 +23,10 @@ import fr.ign.cogit.geoxygene.api.spatial.geomroot.IGeometry;
  */
 public class DistanceAbstractGeom implements Distance {
   
-  protected IGeometry geomRef;
-  protected IGeometry geomComp;
+  protected Geometry geomRef;
+  protected Geometry geomComp;
   
-  public void setGeom(IGeometry geomRef, IGeometry geomComp) {
+  public void setGeom(Geometry geomRef, Geometry geomComp) {
     this.geomRef = geomRef;
     this.geomComp = geomComp;    
   }

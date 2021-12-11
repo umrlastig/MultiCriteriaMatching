@@ -14,9 +14,9 @@
 package fr.ign.cogit.criteria;
 
 import fr.ign.cogit.metadata.Objet;
+import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.distance.Distance;
 import fr.ign.cogit.distance.text.DistanceAbstractText;
-import fr.ign.cogit.geoxygene.api.feature.IFeature;
 
 /**
  * Critère toponymique.
@@ -48,7 +48,7 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 		return "[" + this.seuil + "]";
 	}
   
-	public void setFeature(IFeature featureRef, IFeature featureComp) {
+	public void setFeature(Feature featureRef, Feature featureComp) {
 		super.setFeature(featureRef, featureComp);
 		//    this.nomTopoComp = featureComp.getAttribute(nomAttComp).toString().toLowerCase();
 		//    if (featureRef.getAttribute(nomAttRef) != null) {

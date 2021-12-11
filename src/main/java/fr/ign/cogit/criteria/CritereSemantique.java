@@ -14,9 +14,10 @@
 package fr.ign.cogit.criteria;
 
 import fr.ign.cogit.metadata.Objet;
+import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.distance.Distance;
 import fr.ign.cogit.distance.semantique.DistanceAbstractSemantique;
-import fr.ign.cogit.geoxygene.api.feature.IFeature;
+
 
 /**
  * AutoCloseable.
@@ -40,7 +41,7 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 		this.attrSemantiqueNameComp = objComp.getAttrNameSemantique();
 	}
 
-	public void setFeature(IFeature featureRef, IFeature featureComp) {
+	public void setFeature(Feature featureRef, Feature featureComp) {
 		super.setFeature(featureRef, featureComp);
 	}
 
