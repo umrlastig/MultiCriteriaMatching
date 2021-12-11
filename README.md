@@ -7,14 +7,15 @@ Features matching with Dempster-Shafer Theory as implements in the Evidence4J li
 [![CircleCI](https://img.shields.io/circleci/project/github/umrlastig/MultiCriteriaMatching/main.svg?style=flat-square&label=CircleCI)](https://circleci.com/gh/umrlastig/MultiCriteriaMatching)
 [![Software License](https://img.shields.io/badge/Licence-Cecill--C-blue.svg?style=flat)](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
 
+* Institute: LASTIG, Univ Gustave Eiffel, ENSG, IGN
+* License: Cecill-C
+* Authors:
+
 
 ## README Contents
 
 * [**User Guide**](#user-guide) - Installing and using MultiCriteriaMatching
-* Development & Contributions
-    - [License](#License)
-    - [Authors](#Authors)
-	- [Institute](#Institute)
+
 
 
 # User Guide
@@ -33,15 +34,5 @@ To include *MultiCriteriaMatching* in a Maven project, add a dependency block li
 
 
 
-## Development & Contributions
 
-### License
 
-* [Cecill-C](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
-
-### Authors
-
-* ...
-
-### Institute
-- LASTIG, Univ Gustave Eiffel, ENSG, IGN
