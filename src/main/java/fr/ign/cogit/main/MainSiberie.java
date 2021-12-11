@@ -49,22 +49,22 @@ public class MainSiberie {
 	GeometryFactory factory;
     
     private static final String REF_NOM = "col de Sibérie";
-    private static final String REF_NATURE = "Col";
+    private static final String REF_NATURE = "http://www.owl-ontologies.com/Ontology1176999717.owl#col";
     private static final double REF_X = 826910.2;
     private static final double REF_Y = 6574293.6;
     
     private static final String CANDIDAT1_NOM = "tête du pis";
-    private static final String CANDIDAT1_NATURE = "Sommet";
+    private static final String CANDIDAT1_NATURE = "http://www.owl-ontologies.com/Ontology1176999717.owl#sommet";
     private static final double CANDIDAT1_X = 826665.2;
     private static final double CANDIDAT1_Y = 6574272.7;
     
     private static final String CANDIDAT2_NOM = "grande montagne";
-    private static final String CANDIDAT2_NATURE = "Sommet";
+    private static final String CANDIDAT2_NATURE = "http://www.owl-ontologies.com/Ontology1176999717.owl#sommet";
     private static final double CANDIDAT2_X = 827361.1;
     private static final double CANDIDAT2_Y = 6574327.7;
     
     private static final String CANDIDAT3_NOM = "col de la sibérie";
-    private static final String CANDIDAT3_NATURE = "Col";
+    private static final String CANDIDAT3_NATURE = "http://www.owl-ontologies.com/Ontology1176999717.owl#col";
     private static final double CANDIDAT3_X = 826596.7;
     private static final double CANDIDAT3_Y = 6574083.4;
 

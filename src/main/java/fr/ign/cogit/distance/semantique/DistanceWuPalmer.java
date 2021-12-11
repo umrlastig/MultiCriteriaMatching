@@ -53,18 +53,18 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
         float d = (float)(1 - mesureSimilariteWuPalmer(this.attrNameSemRef, this.attrNameSemComp));
         // System.out.println("Distance WP " + this.attrNameSemRef.toLowerCase() 
         //          + "-" + this.attrNameSemComp.toLowerCase() + " = " + d);
-        System.out.println(d);
+        // System.out.println(d);
         return d;
     }
     
     public double mesureSimilariteWuPalmer(String uri1, String uri2) {
     	float scoreMax = -1;
 		
-    	 System.out.println();
-    	 System.out.println("--------------------------------------------------------------");
-    	 System.out.println(uri1);
-    	 System.out.println(uri2);
-    	// System.out.println(ontoText.getOntoAPlat().size());
+    	 // System.out.println();
+    	 // System.out.println("--------------------------------------------------------------");
+    	 // System.out.println(uri1);
+    	 // System.out.println(uri2);
+    	 // System.out.println(ontoText.getOntoAPlat().size());
 		
 		// hauteur entre racine et noeud
 		int h1 = 0;
@@ -85,12 +85,12 @@ public class DistanceWuPalmer extends DistanceAbstractSemantique implements Dist
 						// System.out.println("-"+hierarchie1);
 
 						for (String enfant2 : ontoText.getOntoAPlat().keySet()) {
-							if (enfant2.contentEquals("http://www.owl-ontologies.com/Ontology1176999717.owl#cime"))
-								System.out.println("enfant2=" + enfant2);
+							// if (enfant2.contentEquals("http://www.owl-ontologies.com/Ontology1176999717.owl#cime"))
+							//	System.out.println("enfant2=" + enfant2);
 							List<List<String>> hierarchies2 = ontoText.getOntoAPlat().get(enfant2);
 							for (List<String> branche2 : hierarchies2) {
-								if (enfant2.contentEquals("http://www.owl-ontologies.com/Ontology1176999717.owl#cime"))
-									System.out.println("----" + branche2);
+								// if (enfant2.contentEquals("http://www.owl-ontologies.com/Ontology1176999717.owl#cime"))
+									// System.out.println("----" + branche2);
 								// uri2 est dans cette hiérarchie ?
 								for (int n2 = 0; n2 < branche2.size(); n2++) {
 									String noeud2 = branche2.get(n2);

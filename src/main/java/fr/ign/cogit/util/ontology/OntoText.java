@@ -36,12 +36,12 @@ public class OntoText {
 		loadOntologyOwl();
 		miseAPlat();
 		
-		for (String key : ontoAPlat.keySet()) {
+		/*for (String key : ontoAPlat.keySet()) {
 			List<List<String>> hierarchies = ontoAPlat.get(key);
 			for (List<String> hierarchie : hierarchies) {
 				System.out.println(key + ":" + hierarchie);
 			}
-		}
+		}*/
 		// System.out.println("===");
 	}
 	
@@ -120,7 +120,7 @@ public class OntoText {
     }
 	
 	private void doAPlat(String noeud, String feuille, int cptG) {
-		//System.out.println("  " + noeud + "," + feuille);
+		// System.out.println("  " + noeud + "," + feuille);
 		// System.out.println(cptG);
 
 		List<List<String>> NOU = new ArrayList<List<String>>();
