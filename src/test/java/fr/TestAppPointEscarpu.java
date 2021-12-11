@@ -186,26 +186,26 @@ public class TestAppPointEscarpu extends TestCase {
         listCritere.add(cg);
         
         // Critere sémantique
-//        DistanceWuPalmer dwp = new DistanceWuPalmer();
-//        CritereSemantique cs = new CritereSemantique(dwp);
-//        cs.setMetadata(objRef, objComp);
-//        cs.setSeuil(0.7);
-//        listCritere.add(cs);
-//        
-//        evidenceAlgoFusionCritere.setListCritere(listCritere);
-//        
-//        IPopulation<IFeature> candidatListe = new Population<IFeature>();
-//        candidatListe.add(getCandidat1());
-//        candidatListe.add(getCandidat2());
-//        candidatListe.add(getCandidat3());
-//        
-//        IFeature ref = getRef();
-//        
-//        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
-//		
-//		Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
-//		
-//		// NA
+        DistanceWuPalmer dwp = new DistanceWuPalmer("/home/marie-dominique/CHOUCAS/OOR/oor_V1.0.1_01102021_MDVD.owl");
+        CritereSemantique cs = new CritereSemantique(dwp);
+        cs.setMetadata(objRef, objComp);
+        cs.setSeuil(0.7);
+        listCritere.add(cs);
+        
+        evidenceAlgoFusionCritere.setListCritere(listCritere);
+        
+        IPopulation<IFeature> candidatListe = new Population<IFeature>();
+        candidatListe.add(getCandidat1());
+        candidatListe.add(getCandidat2());
+        candidatListe.add(getCandidat3());
+        
+        IFeature ref = getRef();
+        
+        List<LigneResultat> lres = evidenceAlgoFusionCritere.appariementObjet(ref, candidatListe);
+		
+		Assert.assertEquals("Nombre de candidats testés + incertitude", 4, lres.size());
+		
+		// NA
 //		LigneResultat ligne0 = lres.get(0);
 //		Assert.assertEquals("Nom des objets", ligne0.getNomTopoRef(), REF_NOM);
 //        Assert.assertEquals("Nom des objets", ligne0.getNomTopoComp(), "NA");
