@@ -10,7 +10,7 @@ Features matching with Dempster-Shafer Theory as implements in the Evidence4J li
 
 ## README Contents
 
-* [**User Guide**](#User Guide) - Installing and using MultiCriteriaMatching
+* [**User Guide**](#user-guide) - Installing and using MultiCriteriaMatching
 * Development & Contributions
     - [License](#License)
     - [Authors](#Authors)
