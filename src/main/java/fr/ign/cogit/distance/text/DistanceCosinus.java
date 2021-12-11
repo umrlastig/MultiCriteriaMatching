@@ -20,7 +20,8 @@ import java.util.StringTokenizer;
 import java.util.TreeMap;
 
 import fr.ign.cogit.distance.Distance;
-import fr.ign.cogit.geoxygene.util.string.TraitementChainesDeCaracteres;
+import fr.ign.cogit.util.text.TraitementChainesDeCaracteres;
+
 
 public class DistanceCosinus extends DistanceAbstractText implements Distance {
 

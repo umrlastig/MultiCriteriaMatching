@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 
@@ -57,19 +55,13 @@
 			<artifactId>commons-lang</artifactId>
 			<version>2.6</version>
 		</dependency>
-		<!-- 
+		<!-- <dependency> <groupId>edu.stanford</groupId> <artifactId>protege-owl</artifactId> <version>3.2.1</version> </dependency> -->
 		<dependency>
-			<groupId>edu.stanford</groupId>
-			<artifactId>protege-owl</artifactId>
-			<version>3.2.1</version>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>apache-jena-libs</artifactId>
+			<version>3.17.0</version>
+			<type>pom</type>
 		</dependency>
-		-->
-		<dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>apache-jena-libs</artifactId>
-            <version>3.17.0</version>
-            <type>pom</type>
-        </dependency>
 
 		<!-- GEOXYGENE -->
 		<dependency>
@@ -87,57 +79,32 @@
 			<artifactId>geoxygene-feature</artifactId>
 			<version>${geoxygene.noyau.version}</version>
 		</dependency>
-		<!-- 
+
 		<dependency>
-			<groupId>fr.ign.cogit</groupId>
-			<artifactId>geoxygene-ontology</artifactId>
-			<version>${geoxygene.noyau.version}</version>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.2</version>
+			<scope>test</scope>
 		</dependency>
-		-->
-		<dependency>
-			<groupId>fr.ign.cogit</groupId>
-			<artifactId>geoxygene-io</artifactId>
-			<version>${geoxygene.noyau.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>fr.ign.cogit</groupId>
-			<artifactId>geoxygene-util</artifactId>
-			<version>${geoxygene.noyau.version}</version>
-		</dependency>
-		<!-- 
-		<dependency>
-            <groupId>fr.ign.cogit</groupId>
-            <artifactId>geoxygene-contrib</artifactId>
-            <version>${geoxygene.noyau.version}</version>
-        </dependency>
-        -->
-		<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>2.13.3</version>
-		</dependency>
+
 
 		<dependency>
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-spellchecker</artifactId>
 			<version>3.6.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
+		</dependency>
 
 
 		<dependency>
-    <groupId>com.ibm.icu</groupId>
-    <artifactId>icu4j</artifactId>
-    <version>70.1</version>
-</dependency>
-
-
-
+			<groupId>com.ibm.icu</groupId>
+			<artifactId>icu4j</artifactId>
+			<version>70.1</version>
+		</dependency>
 
 	</dependencies>
 

@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import fr.ign.cogit.geoxygene.util.string.ApproximateMatcher;
-import fr.ign.cogit.geoxygene.util.string.MatriceConfiance;
-import fr.ign.cogit.geoxygene.util.string.TraitementChainesDeCaracteres;
+import fr.ign.cogit.util.text.ApproximateMatcher;
+import fr.ign.cogit.util.text.MatriceConfiance;
+import fr.ign.cogit.util.text.TraitementChainesDeCaracteres;
 
 /**
  * 

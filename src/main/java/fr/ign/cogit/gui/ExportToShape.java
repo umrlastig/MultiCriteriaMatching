@@ -40,7 +40,7 @@ import fr.ign.cogit.geoxygene.schema.schemaConceptuelISOJeu.FeatureType;
 import fr.ign.cogit.geoxygene.spatial.coordgeom.DirectPositionList;
 import fr.ign.cogit.geoxygene.spatial.coordgeom.GM_LineString;
 import fr.ign.cogit.geoxygene.spatial.geomaggr.GM_MultiCurve;
-import fr.ign.cogit.geoxygene.util.conversion.ShapefileWriter;
+
 
 
 /**
@@ -103,13 +103,13 @@ public class ExportToShape {
             
         }
      
-        try {
+        /*try {
             CoordinateReferenceSystem crs = CRS.decode("EPSG:2154");
             ShapefileWriter.write(entrees, pathname + "-" + new SimpleDateFormat("yyyyMMdd-HHmmssSSS", Locale.FRANCE).format(new Date()) + ".shp", crs);
         } catch (Exception e) {
           e.printStackTrace();
         }
-        
+        */
     }
 	
 	
@@ -199,12 +199,12 @@ public class ExportToShape {
 	    }
 	        
 	    
-	    try {
+	    /*try {
 	    	CoordinateReferenceSystem crs = CRS.decode("EPSG:2154");
 	    	ShapefileWriter.write(entrees, pathname + "-" + new SimpleDateFormat("yyyyMMdd-HHmmssSSS", Locale.FRANCE).format(new Date()) + ".shp", crs);
 	    } catch (Exception e) {
 	      e.printStackTrace();
-	    }
+	    }*/
 	    
 		
 	}
