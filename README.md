@@ -10,8 +10,7 @@ Features matching with Dempster-Shafer Theory as implements in the Evidence4J li
 
 ## Utiliser la librairie Java
 
-- code source : https://github.com/umrlastig/MultiCriteriaMatching
-- pour inclusion dans un projet *Maven* :
+To include *MultiCriteriaMatching* in a Maven project, add a dependency block like the following:
 
 ```xml
 <dependency>
