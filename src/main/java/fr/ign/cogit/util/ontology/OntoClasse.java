@@ -72,7 +72,11 @@ public class OntoClasse {
 	public String getLabel() { return this.label; }
 	public String getPrefLabel() {
 		if (this.prefLabel == null) {
-			return this.uri.split("#")[1];
+			if (this.label != null) {
+				return this.label;
+			} else {
+				return this.uri.split("#")[1];
+			}
 		} else return this.prefLabel; 
 	}
 	public List<String> getAltLabel() { return this.altLabel; }

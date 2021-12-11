@@ -80,11 +80,11 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 			tableau[2] = 0.1;
 		}
 		// Si concept n'est pas dans l'ontologie 
-                if (Double.isNaN(distNorm)) {
-                        tableau[0] = 0;
-                        tableau[1] = 0;
-                        tableau[2] = 1;
-                }
+		if (Double.isNaN(distNorm)) {
+			tableau[0] = 0;
+			tableau[1] = 0;
+			tableau[2] = 1;
+		}
 
 		try {
 			checkSommeMasseEgale1(tableau);
