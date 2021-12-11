@@ -30,3 +30,18 @@ To include *MultiCriteriaMatching* in a Maven project, add a dependency block li
     <version>1.0-SNAPSHOT</version>
 </dependency>
 ```
+
+
+
+## Development & Contributions
+
+### License
+
+* [Cecill-C](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
+
+### Authors
+
+* ...
+
+### Institute
+- LASTIG, Univ Gustave Eiffel, ENSG, IGN
