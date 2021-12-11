@@ -133,16 +133,6 @@
 				<enabled>true</enabled>
 			</releases>
 		</repository>
-		<repository>
-			<id>snapshots</id>
-			<name>Nexus Snapshots Repository</name>
-			<url>https://forge-cogit.ign.fr/nexus/content/repositories/snapshots/</url>
-		</repository>
-		<repository>
-			<id>releases</id>
-			<name>Internal Releases</name>
-			<url>https://forge-cogit.ign.fr/nexus/content/repositories/releases/</url>
-		</repository>
 	</repositories>
 
 

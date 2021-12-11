@@ -192,7 +192,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);
@@ -292,7 +292,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);
@@ -391,7 +391,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);
@@ -475,7 +475,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);
@@ -559,7 +559,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);
@@ -633,7 +633,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "false");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 1);
@@ -707,7 +707,7 @@ public class TestAppPointSiberie extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "true");
         
         TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 0);

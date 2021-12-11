@@ -90,6 +90,13 @@ public class TableauResultatFrame implements ActionListener {
 
 	}
 	
+	public void computeRes(List<LigneResultat> listeResultat) {
+		this.listeResultat = listeResultat;
+		initResultat();
+		initResultatPanel();
+		initButtonPanel();
+	}
+	
 	public void setListeResultat(List<LigneResultat> listeResultat) {
 		this.listeResultat = listeResultat;
 	}

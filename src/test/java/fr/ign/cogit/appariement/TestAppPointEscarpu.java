@@ -210,7 +210,7 @@ public class TestAppPointEscarpu extends TestCase {
         Assert.assertEquals("Decision", ligne3.isDecision(), "false");
 		
 		TableauResultatFrame tableauPanel = new TableauResultatFrame();
-        tableauPanel.displayEnsFrame("tests", lres);
+        tableauPanel.computeRes(lres);
         int[] tab = tableauPanel.analyse();
         
         Assert.assertEquals("NB NA : ", tab[0], 1);
