@@ -3,5 +3,20 @@
 [![Software License](https://img.shields.io/badge/Licence-Cecill--C-blue.svg?style=flat)](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
 
 
-# MultiCriteriaMatching
+# Multi Criteria Matching (Dempster-Shafer Theory)
+
 Features matching with Dempster-Shafer Theory as implements in the Evidence4J library
+
+
+## Utiliser la librairie Java
+
+- code source : https://github.com/umrlastig/MultiCriteriaMatching
+- pour inclusion dans un projet *Maven* :
+
+```xml
+<dependency>
+    <groupId>fr.ign.cogit</groupId>
+    <artifactId>MultiCriteriaMatching</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
