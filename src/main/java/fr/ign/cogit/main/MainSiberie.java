@@ -14,9 +14,7 @@
 package fr.ign.cogit.main;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
@@ -25,11 +23,7 @@ import org.locationtech.jts.geom.Point;
 import fr.ign.cogit.appariement.AppariementDST;
 import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.appariement.LigneResultat;
-import fr.ign.cogit.appli.ExportToCSV;
 import fr.ign.cogit.appli.TableauResultatFrame;
-import fr.ign.cogit.metadata.Objet;
-import fr.ign.cogit.metadata.PAIBDCarto;
-import fr.ign.cogit.metadata.PAIBDTopo;
 import fr.ign.cogit.criteria.Critere;
 import fr.ign.cogit.criteria.CritereGeom;
 import fr.ign.cogit.criteria.CritereSemantique;
@@ -82,16 +76,11 @@ public class MainSiberie {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere toponymique
         DistanceSamal ds = new DistanceSamal();
         CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
         ct.setSeuil(0.6);
         listCritere.add(ct);
             
@@ -104,7 +93,6 @@ public class MainSiberie {
         // Critere sémantique
         DistanceWuPalmer dwp = new DistanceWuPalmer("./data/ontology/GeOnto.owl");
         CritereSemantique cs = new CritereSemantique(dwp);
-        cs.setMetadata(objRef, objComp);
         cs.setSeuil(0.7);
         listCritere.add(cs);
         

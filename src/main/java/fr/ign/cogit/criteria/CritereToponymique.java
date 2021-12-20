@@ -13,7 +13,6 @@
  */
 package fr.ign.cogit.criteria;
 
-import fr.ign.cogit.metadata.Objet;
 import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.distance.Distance;
 import fr.ign.cogit.distance.text.DistanceAbstractText;
@@ -28,16 +27,8 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 	/** Le seuil pour les masses de croyances. */
 	private double seuil = 0.6;
   
-	private String nomAttRef;
-	private String nomAttComp;
-  
 	public CritereToponymique(Distance d) {
 		super(d);
-	}
-  
-	public void setMetadata(Objet objRef, Objet objetComp) {
-		this.nomAttRef = objRef.getNom();
-		this.nomAttComp = objetComp.getNom();
 	}
   
 	public void setSeuil(double seuil) {
@@ -80,15 +71,15 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 			nomTopoRef = featureRef.getAttribute(nomAttRef).toString().toLowerCase();
 		}*/ 
 		
-		if (featureComp.getAttribute(nomAttComp) != null && featureComp.getAttribute(nomAttComp) != "") {
-		        nomTopoComp=new String(featureComp.getAttribute(nomAttComp).toString().getBytes("ISO-8859-1"), "UTF-8");
-		        nomTopoComp=nomTopoComp.toLowerCase();
+		if (featureComp.getNom() != null && featureComp.getNom() != "") {
+			nomTopoComp = new String(featureComp.getNom().getBytes("ISO-8859-1"), "UTF-8");
+			nomTopoComp=nomTopoComp.toLowerCase();
 		 }
 		    
 		String nomTopoRef = "";
-		if (featureRef.getAttribute(nomAttRef) != null) {
-		       nomTopoRef = new String(featureRef.getAttribute(nomAttRef).toString().getBytes("ISO-8859-1"), "UTF-8");
-		       nomTopoRef=nomTopoRef.toLowerCase();
+		if (featureRef.getNom() != null) {
+			nomTopoRef = new String(featureRef.getNom().getBytes("ISO-8859-1"), "UTF-8");
+			nomTopoRef=nomTopoRef.toLowerCase();
 		} 
 		
 		((DistanceAbstractText)distance).setText(nomTopoRef, nomTopoComp);

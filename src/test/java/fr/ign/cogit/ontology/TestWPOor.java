@@ -39,12 +39,10 @@ public class TestWPOor extends TestCase {
 		d = (float)(1-m);
 		// Assert.assertEquals(1 - 0.20000000298023224, d, 0.0001);
 		Assert.assertEquals(0.3333333134651184, d, 0.0001);
-	
 	}
 	
 	
 	public void testNoeud() throws Exception {
-		
 		DistanceWuPalmer dwp = new DistanceWuPalmer(ONTO_OOR_PATH);
 		String uri1 = "http://purl.org/choucas.ign.fr/oor#sommet";
 		String uri2 = "http://purl.org/choucas.ign.fr/oor#pic";

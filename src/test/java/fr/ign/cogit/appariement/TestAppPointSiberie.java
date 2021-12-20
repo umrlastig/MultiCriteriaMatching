@@ -18,9 +18,6 @@ import fr.ign.cogit.criteria.CritereToponymique;
 import fr.ign.cogit.distance.geom.DistanceEuclidienne;
 import fr.ign.cogit.distance.semantique.DistanceWuPalmer;
 import fr.ign.cogit.distance.text.DistanceSamal;
-import fr.ign.cogit.metadata.PAIBDCarto;
-import fr.ign.cogit.metadata.PAIBDTopo;
-import fr.ign.cogit.metadata.Objet;
 import junit.framework.TestCase;
 
 /**
@@ -65,9 +62,9 @@ public class TestAppPointSiberie extends TestCase {
     private Feature getRef() {
     	Point pt = factory.createPoint(new Coordinate(REF_X, REF_Y));
 		Feature defaultFeature = new Feature(pt);
-		defaultFeature.addAttribut("cleabs", "1");
+		defaultFeature.addAttribut("id", "1");
 		defaultFeature.addAttribut("nom", REF_NOM);
-		defaultFeature.addAttribut("nature", REF_NATURE);
+		defaultFeature.addAttribut("uri", REF_NATURE);
 		return defaultFeature;
     }
     
@@ -75,9 +72,9 @@ public class TestAppPointSiberie extends TestCase {
     private Feature getCandidat1() {
     	Point pt = factory.createPoint(new Coordinate(CANDIDAT1_X, CANDIDAT1_Y));
 		Feature defaultFeature = new Feature(pt);
-		defaultFeature.addAttribut("cleabs", "1");
+		defaultFeature.addAttribut("id", "1");
 		defaultFeature.addAttribut("nom", CANDIDAT1_NOM);
-		defaultFeature.addAttribut("nature", CANDIDAT1_NATURE);
+		defaultFeature.addAttribut("uri", CANDIDAT1_NATURE);
 		return defaultFeature;
     }
     
@@ -85,9 +82,9 @@ public class TestAppPointSiberie extends TestCase {
     private Feature getCandidat2() {
     	Point pt = factory.createPoint(new Coordinate(CANDIDAT2_X, CANDIDAT2_Y));
 		Feature defaultFeature = new Feature(pt);
-		defaultFeature.addAttribut("cleabs", "2");
+		defaultFeature.addAttribut("id", "2");
 		defaultFeature.addAttribut("nom", CANDIDAT2_NOM);
-		defaultFeature.addAttribut("nature", CANDIDAT2_NATURE);
+		defaultFeature.addAttribut("uri", CANDIDAT2_NATURE);
 		return defaultFeature;
     }
     
@@ -95,9 +92,9 @@ public class TestAppPointSiberie extends TestCase {
     private Feature getCandidat3() {
     	Point pt = factory.createPoint(new Coordinate(CANDIDAT3_X, CANDIDAT3_Y));
 		Feature defaultFeature = new Feature(pt);
-		defaultFeature.addAttribut("cleabs", "3");
+		defaultFeature.addAttribut("id", "3");
 		defaultFeature.addAttribut("nom", CANDIDAT3_NOM);
-		defaultFeature.addAttribut("nature", CANDIDAT3_NATURE);
+		defaultFeature.addAttribut("uri", CANDIDAT3_NATURE);
 		return defaultFeature;
     }
     
@@ -112,16 +109,11 @@ public class TestAppPointSiberie extends TestCase {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere toponymique
         DistanceSamal ds = new DistanceSamal();
         CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
         ct.setSeuil(0.6);
         listCritere.add(ct);
             
@@ -134,7 +126,6 @@ public class TestAppPointSiberie extends TestCase {
         // Critere sémantique
         DistanceWuPalmer dwp = new DistanceWuPalmer("./data/ontology/GeOnto.owl");
         CritereSemantique cs = new CritereSemantique(dwp);
-        cs.setMetadata(objRef, objComp);
         cs.setSeuil(0.7);
         listCritere.add(cs);
         
@@ -212,10 +203,6 @@ public class TestAppPointSiberie extends TestCase {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere géométrique
@@ -227,14 +214,12 @@ public class TestAppPointSiberie extends TestCase {
         // Critere toponymique
         DistanceSamal ds = new DistanceSamal();
         CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
         ct.setSeuil(0.6);
         listCritere.add(ct);
         
         // Critere sémantique
         DistanceWuPalmer dwp = new DistanceWuPalmer("./data/ontology/GeOnto.owl");
         CritereSemantique cs = new CritereSemantique(dwp);
-        cs.setMetadata(objRef, objComp);
         cs.setSeuil(0.7);
         listCritere.add(cs);
         
@@ -311,10 +296,6 @@ public class TestAppPointSiberie extends TestCase {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere géométrique
@@ -326,14 +307,12 @@ public class TestAppPointSiberie extends TestCase {
         // Critere sémantique
         DistanceWuPalmer dwp = new DistanceWuPalmer("./data/ontology/GeOnto.owl");
         CritereSemantique cs = new CritereSemantique(dwp);
-        cs.setMetadata(objRef, objComp);
         cs.setSeuil(0.7);
         listCritere.add(cs);
         
         // Critere toponymique
         DistanceSamal ds = new DistanceSamal();
         CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
         ct.setSeuil(0.6);
         listCritere.add(ct);
         
@@ -411,10 +390,6 @@ public class TestAppPointSiberie extends TestCase {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere géométrique
@@ -426,7 +401,6 @@ public class TestAppPointSiberie extends TestCase {
         // Critere toponymique
         DistanceSamal ds = new DistanceSamal();
         CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
         ct.setSeuil(0.6);
         listCritere.add(ct);
         
@@ -495,16 +469,11 @@ public class TestAppPointSiberie extends TestCase {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere toponymique
         DistanceSamal ds = new DistanceSamal();
         CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
         ct.setSeuil(0.6);
         listCritere.add(ct);
         
@@ -579,10 +548,6 @@ public class TestAppPointSiberie extends TestCase {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere géométrique
@@ -652,16 +617,11 @@ public class TestAppPointSiberie extends TestCase {
         AppariementDST evidenceAlgoFusionCritere = new AppariementDST();
         evidenceAlgoFusionCritere.setSeuilIndecision(0.15);
         
-        Objet objRef = new PAIBDTopo();
-        Objet objComp = new PAIBDCarto();
-        evidenceAlgoFusionCritere.setMetadata(objRef, objComp);
-    
         List<Critere> listCritere = new ArrayList<Critere>();
         
         // Critere toponymique
         DistanceSamal ds = new DistanceSamal();
         CritereToponymique ct = new CritereToponymique(ds);
-        ct.setMetadata(objRef, objComp);
         ct.setSeuil(0.6);
         listCritere.add(ct);
         

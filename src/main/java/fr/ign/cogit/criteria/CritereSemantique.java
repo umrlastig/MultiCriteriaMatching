@@ -13,7 +13,6 @@
  */
 package fr.ign.cogit.criteria;
 
-import fr.ign.cogit.metadata.Objet;
 import fr.ign.cogit.appariement.Feature;
 import fr.ign.cogit.distance.Distance;
 import fr.ign.cogit.distance.semantique.DistanceAbstractSemantique;
@@ -31,14 +30,6 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 
 	public CritereSemantique(Distance distance) {
 		super(distance);
-	}
-
-	private String attrSemantiqueNameRef;
-	private String attrSemantiqueNameComp;
-
-	public void setMetadata(Objet objRef, Objet objComp) {
-		this.attrSemantiqueNameRef = objRef.getAttrNameSemantique();
-		this.attrSemantiqueNameComp = objComp.getAttrNameSemantique();
 	}
 
 	public void setFeature(Feature featureRef, Feature featureComp) {
@@ -64,8 +55,8 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 	@Override
 	public double[] getMasse() throws Exception {
 
-		String valTypeRef = (featureRef.getAttribute(attrSemantiqueNameRef).toString());
-		String valTypeComp = (featureComp.getAttribute(attrSemantiqueNameComp).toString());
+		String valTypeRef = featureRef.getUri();
+		String valTypeComp = featureComp.getUri();
 		
 		((DistanceAbstractSemantique) distance).setType(valTypeComp, valTypeRef);
 		double distNorm = distance.getDistance();
