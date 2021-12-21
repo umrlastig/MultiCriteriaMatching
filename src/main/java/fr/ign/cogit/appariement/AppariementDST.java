@@ -258,38 +258,37 @@ public class AppariementDST {
 			double pignisticCandidat = arrondi(combination_cfusion.pignistic(configCadreDiscernement.get(id)), 5);
 			listPignistic.add(pignisticCandidat);
     
- 		double conflit = combination_cfusion.getConflit();
- 		LOGGER.info("Conflit = " + conflit);
- 		// System.out.println("conflit = " + conflit + ", pign = " + pignisticCandidat);
+			double conflit = combination_cfusion.getConflit();
+			LOGGER.info("Conflit = " + conflit);
+			// System.out.println("conflit = " + conflit + ", pign = " + pignisticCandidat);
     
- 		String nomRef = "";
- 		if (featRef.getNom() != null && featRef.getNom() != "") {
- 			nomRef = featRef.getNom();
- 		}
- 		String nomComp = "";
- 		if (candidat.getNom() != null && candidat.getNom() != "") {
- 			nomComp = candidat.getNom();
- 		}
+			String nomRef = "";
+			if (featRef.getNom() != null && featRef.getNom() != "") {
+				nomRef = featRef.getNom();
+			}
+	 		String nomComp = "";
+	 		if (candidat.getNom() != null && candidat.getNom() != "") {
+	 			nomComp = candidat.getNom();
+	 		}
     
- 		distances = new double[this.listCritere.size()];
- 		for (int c = 0; c < this.listCritere.size(); c++) {
- 			Critere crit = this.listCritere.get(c);
- 			crit.setFeature(featRef, candidat);
- 			crit.getMasse();
- 			double dist = arrondi(crit.getDistance().getDistance(), 5);
- 			distances[c] = dist;
- 		}
+	 		distances = new double[this.listCritere.size()];
+	 		for (int c = 0; c < this.listCritere.size(); c++) {
+	 			Critere crit = this.listCritere.get(c);
+	 			crit.setFeature(featRef, candidat);
+	 			crit.getMasse();
+	 			double dist = arrondi(crit.getDistance().getDistance(), 5);
+	 			distances[c] = dist;
+	 		}
         
- 		// Rajout ligne tableau
- 			// String[] attrs = null;
- 		//          topoDico.getAttribute(this.objRef.getNature()).toString()
- 		//          candidat.getAttribute(this.objComp.getNature()).toString()
- 		LigneResultat res2 = new LigneResultat(identifiant, nomRef, attrs, 
- 				compteurC, id, nomComp,  attrs, distances, nomsDistance, pignisticCandidat);
- 		res2.setGeom(featRef.getGeom(), candidat.getGeom());
- 		listeRes.add(res2);
- 		// Fin rajout ligne tableau
-    
+	 		// Rajout ligne tableau
+	 			// String[] attrs = null;
+	 		//          topoDico.getAttribute(this.objRef.getNature()).toString()
+	 		//          candidat.getAttribute(this.objComp.getNature()).toString()
+	 		LigneResultat res2 = new LigneResultat(identifiant, nomRef, attrs, 
+	 				compteurC, id, nomComp,  attrs, distances, nomsDistance, pignisticCandidat);
+	 		res2.setGeom(featRef.getGeom(), candidat.getGeom());
+	 		listeRes.add(res2);
+	 		// Fin rajout ligne tableau
     
 	 		if (pignisticCandidat > max) {
 	 			max = pignisticCandidat;
@@ -300,17 +299,17 @@ public class AppariementDST {
 	 		}
 		}
 
- 	// On trie
- 	LOGGER.info(Arrays.toString(listPignistic.toArray()));
- 	Collections.sort(listPignistic);
- 	LOGGER.info(Arrays.toString(listPignistic.toArray()));
+		// On trie
+		LOGGER.info(Arrays.toString(listPignistic.toArray()));
+		Collections.sort(listPignistic);
+		LOGGER.info(Arrays.toString(listPignistic.toArray()));
 
   
-  // Un seul candidat
-  if (cptMax == 1) {
-    // On regarde le deuxieme plus grand
-    double pignisticMaxMoinsUn = listPignistic.get(listPignistic.size() - 2);
-    double difference = Math.abs(pignisticMaxMoinsUn - max);
+		// Un seul candidat
+		if (cptMax == 1) {
+			// On regarde le deuxieme plus grand
+			double pignisticMaxMoinsUn = listPignistic.get(listPignistic.size() - 2);
+			double difference = Math.abs(pignisticMaxMoinsUn - max);
     
     
 //    LOGGER.info("max1 = " + max + " et max2 = " + pignisticMaxMoinsUn);
