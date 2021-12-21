@@ -118,8 +118,18 @@ public class CritereToponymique extends CritereAbstract implements Critere {
 			}
 		} else {
 			if (featureComp.getGraphies().size() > 0) {
-				//
-			} 
+				for (String graphieComp : featureComp.getGraphies()) {
+					graphieComp = new String(graphieComp.getBytes("ISO-8859-1"), "UTF-8");
+					graphieComp = graphieComp.toLowerCase();
+					((DistanceAbstractText)distance).setText(nomTopoRef, graphieComp);
+					d = distance.getDistance();
+					if (d < distNorm) {
+						distNorm = d;
+					}
+				}
+			} else {
+				// 1-1 déjà fait au début
+			}
 		}
 		
 		if (distNorm.isNaN()) {
