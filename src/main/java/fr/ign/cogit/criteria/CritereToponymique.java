@@ -22,7 +22,7 @@ import fr.ign.cogit.distance.text.DistanceAbstractText;
  * 
  * @author M-D Van Damme
  */
-public class CritereToponymique extends CritereAbstract implements Critere  {
+public class CritereToponymique extends CritereAbstract implements Critere {
   
 	/** Le seuil pour les masses de croyances. */
 	private double seuil = 0.6;
@@ -82,7 +82,45 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 		
 		((DistanceAbstractText)distance).setText(nomTopoRef, nomTopoComp);
 		Double distNorm = distance.getDistance();
-		// System.out.println(distNorm);
+		double d = 10.0;
+
+		if (featureRef.getGraphies().size() > 0) {
+			if (featureComp.getGraphies().size() > 0) {
+				for (String graphieRef : featureRef.getGraphies()) {
+					graphieRef = new String(graphieRef.getBytes("ISO-8859-1"), "UTF-8");
+					graphieRef = graphieRef.toLowerCase();
+					((DistanceAbstractText)distance).setText(graphieRef, nomTopoComp);
+					d = distance.getDistance();
+					if (d < distNorm) {
+						distNorm = d;
+					}
+					for (String graphieComp : featureComp.getGraphies()) {
+						graphieComp = new String(graphieComp.getBytes("ISO-8859-1"), "UTF-8");
+						graphieComp = graphieComp.toLowerCase();
+						((DistanceAbstractText)distance).setText(graphieRef, graphieComp);
+						d = distance.getDistance();
+						if (d < distNorm) {
+							distNorm = d;
+						}
+					}
+				}
+			} else {
+				for (String graphieRef : featureRef.getGraphies()) {
+					graphieRef = new String(graphieRef.getBytes("ISO-8859-1"), "UTF-8");
+					graphieRef = graphieRef.toLowerCase();
+					((DistanceAbstractText)distance).setText(graphieRef, nomTopoComp);
+					d = distance.getDistance();
+					// System.out.println(d + "-" + graphieRef + "--" + nomTopoComp);
+					if (d < distNorm) {
+						distNorm = d;
+					}
+				}
+			}
+		} else {
+			if (featureComp.getGraphies().size() > 0) {
+				//
+			} 
+		}
 		
 		if (distNorm.isNaN()) {
             tableau[0] = 0;

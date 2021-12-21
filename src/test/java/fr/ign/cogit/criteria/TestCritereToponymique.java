@@ -91,10 +91,24 @@ public class TestCritereToponymique extends TestCase {
 //	}
 	
 	
-	public void testGraphies() {
+	public void testGraphies() throws Exception {
 		DistanceLevenshtein ds = new DistanceLevenshtein();
         CritereToponymique ct = new CritereToponymique(ds);
         ct.setSeuil(0.60);
+        
+        Feature f1 = new Feature(null);
+        f1.addAttribut("nom", "nom 1");
+        f1.addGraphie("nom 2");
+        f1.addGraphie("Refuge de la Vanoise");
+        
+        Feature f2 = new Feature(null);
+        f2.addAttribut("nom", "Refuge de la Vanoise");
+        
+        ct.setFeature(f1, f2);
+        
+        Assert.assertEquals("", ct.getMasse()[0], 1.0, 0.0001);
+        Assert.assertEquals("", ct.getMasse()[1], 0.0, 0.0001);
+        Assert.assertEquals("", ct.getMasse()[2], 0.0, 0.0001);
 	}
 
 }
