@@ -84,6 +84,7 @@ public class TestCritereToponymique extends TestCase {
         Assert.assertEquals("", ct.getMasse()[2], 1.0, 0.0001);
 	}
 	
+	
 //	public void testLevenshtein() {
 //		DistanceLevenshtein ds = new DistanceLevenshtein();
 //        CritereToponymique ct = new CritereToponymique(ds);

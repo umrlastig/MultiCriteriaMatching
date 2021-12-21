@@ -159,24 +159,10 @@ public class AppariementDST {
       
 			// On initialise les masses
 			for (int c = 0; c < this.listCritere.size(); c++) {
-          
-				// 
 				Critere crit = this.listCritere.get(c);
 				crit.setFeature(featRef, candidat);
 				double[] massesCS = new double[3];
-          
-				// 
-				if (crit.getDistance().getNom().equals("Samal")) {
-					if (featRef.getNom() != null) {
-						massesCS = crit.getMasse();
-					} else {
-						massesCS[0] = 0;
-						massesCS[1] = 0;
-						massesCS[2] = 1;
-					}
-				} else {
-					massesCS = crit.getMasse();
-				}
+				massesCS = crit.getMasse();
           
 				MassPotential<String> masseCandidatCritere = new MassPotential<String>(cadreDiscernement);
 				masseCandidatCritere.add(listeAppC.get(id), massesCS[0]);
@@ -185,9 +171,7 @@ public class AppariementDST {
 				listeMasseCandCrits.get(c).put(id,  masseCandidatCritere);
 				LOGGER.info("Distance pour " + crit.getNom() + " = "+ crit.getDistance().getDistance());
 				LOGGER.info("  masses = [" + massesCS[0] + ", " + massesCS[1] + ", " + massesCS[2] + "]");
-          
 			}
-      
 		} 
   
 
