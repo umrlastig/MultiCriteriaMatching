@@ -7,6 +7,6 @@ workflows:
   maven_test:
     jobs:
       - maven/test
-	  - run: mvn test
+      - run: mvn test
       - store_artifacts:
           path: target
