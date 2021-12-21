@@ -151,6 +151,7 @@ public class AppariementDST {
 			listeMasseCandCrits.put(c, listeMasseCand1Crit);
 		}
   
+		
 		for (Feature candidat : candidatListe) {
     
 			String id = candidat.getId();

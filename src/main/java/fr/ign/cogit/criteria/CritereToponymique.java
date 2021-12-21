@@ -41,12 +41,6 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
   
 	public void setFeature(Feature featureRef, Feature featureComp) {
 		super.setFeature(featureRef, featureComp);
-		//    this.nomTopoComp = featureComp.getAttribute(nomAttComp).toString().toLowerCase();
-		//    if (featureRef.getAttribute(nomAttRef) != null) {
-		//      this.nomTopoRef = featureRef.getAttribute(nomAttRef).toString().toLowerCase();
-		//    } else {
-		//      this.nomTopoRef = "";
-		//    }
 	}
   
  
@@ -61,31 +55,35 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 	 * @throws Exception 
 	 */
 	public double[] getMasse() throws Exception {
+		
+		double[] tableau = new double[3];
     
 		String nomTopoComp = "";
-		/*if (featureComp.getAttribute(nomAttComp) != null && featureComp.getAttribute(nomAttComp) != "") {
-			nomTopoComp = featureComp.getAttribute(nomAttComp).toString().toLowerCase();
-		}
-		String nomTopoRef = "";
-		if (featureRef.getAttribute(nomAttRef) != null) {
-			nomTopoRef = featureRef.getAttribute(nomAttRef).toString().toLowerCase();
-		}*/ 
-		
 		if (featureComp.getNom() != null && featureComp.getNom() != "") {
 			nomTopoComp = new String(featureComp.getNom().getBytes("ISO-8859-1"), "UTF-8");
-			nomTopoComp=nomTopoComp.toLowerCase();
-		 }
+			nomTopoComp = nomTopoComp.toLowerCase();
+		} else {
+			tableau[0] = 0;
+			tableau[1] = 0;
+			tableau[2] = 1;
+			return tableau;
+		}
 		    
 		String nomTopoRef = "";
-		if (featureRef.getNom() != null) {
+		if (featureRef.getNom() != null && featureRef.getNom() != "") {
 			nomTopoRef = new String(featureRef.getNom().getBytes("ISO-8859-1"), "UTF-8");
 			nomTopoRef=nomTopoRef.toLowerCase();
-		} 
+		} else {
+			tableau[0] = 0;
+			tableau[1] = 0;
+			tableau[2] = 1;
+			return tableau;
+		}
 		
 		((DistanceAbstractText)distance).setText(nomTopoRef, nomTopoComp);
 		Double distNorm = distance.getDistance();
-    
-		double[] tableau = new double[3];
+		// System.out.println(distNorm);
+		
 		if (distNorm.isNaN()) {
             tableau[0] = 0;
             tableau[1] = 0;
@@ -99,29 +97,6 @@ public class CritereToponymique extends CritereAbstract implements Critere  {
 			tableau[1] = 0.5;
 			tableau[2] = 0.4;
 		}
-    
-		// Si nom est NULL, on écrase 
-		if (nomTopoRef == null ) {
-			tableau[0] = 0;
-			tableau[1] = 0;
-			tableau[2] = 1;
-		}
-		// Si nom objet Ref = NR, on écrase 
-		if (nomTopoComp == null || nomTopoComp.equals("nr")) {
-		    tableau[0] = 0;
-		    tableau[1] = 0;
-		    tableau[2] = 1;
-		}
-	    
-	    /*if (distNorm < seuil) {
-	      tableau[0] = (-0.4/seuil)*distNorm + 0.5;
-	      tableau[1] = (0.8/seuil)*distNorm;
-	      tableau[2] = (-0.4/seuil)*distNorm + 0.5;
-	    } else {
-	      tableau[0] = 0.1;
-	      tableau[1] = 0.8;
-	      tableau[2] = 0.1;
-	    }*/
     
 		try {
 			checkSommeMasseEgale1(tableau);

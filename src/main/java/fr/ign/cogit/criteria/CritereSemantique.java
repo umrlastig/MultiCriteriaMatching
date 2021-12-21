@@ -71,6 +71,7 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 			tableau[1] = 0.8;
 			tableau[2] = 0.1;
 		}
+		
 		// Si concept n'est pas dans l'ontologie 
 		if (Double.isNaN(distNorm)) {
 			tableau[0] = 0;
