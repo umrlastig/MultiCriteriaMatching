@@ -116,9 +116,7 @@ public class AppariementDST {
 		configCadreDiscernement.put("NA", cna);
 
 
-		/*
-		 * ------------------- Approche appriou -------------------
-		 */
+		// ------------------- Approche appriou -------------------
 		Map<String, ConfigurationSet<String>> listeAppC = new HashMap<String, ConfigurationSet<String>>();
 		Map<String, ConfigurationSet<String>> listeNonAppC = new HashMap<String, ConfigurationSet<String>>();
 		for (Feature candidat : candidatListe) {
@@ -153,7 +151,6 @@ public class AppariementDST {
   
 		
 		for (Feature candidat : candidatListe) {
-    
 			String id = candidat.getId();
 			LOGGER.info("Feature : " + candidat.getNom());
       
@@ -201,9 +198,7 @@ public class AppariementDST {
 				cfusion.add(listeMasseCandCrits.get(c).get(id));
 			}
 
-			/*
-			 * -------------------Final mass combination-------------------
-			 */  
+			// -------------------Final mass combination-------------------
 			MassPotential<String> combination_P1 = MassPotential.combination(mpP, false);
 			combinationDesCriteresParCandidat.put(id, combination_P1);
 			combination_P1.check();
@@ -224,10 +219,8 @@ public class AppariementDST {
 		for (Feature candidat : candidatListe) {
 			String id = candidat.getId();
 			String nomCandidat = "";
-			/*if (candidat.getNom() != null && candidat.getNom() != "") {
-				candidat.getNom().toLowerCase();
-			}*/
-			LOGGER.info("pign pour  " + nomCandidat + " = " + arrondi(combination_cfusion.pignistic(configCadreDiscernement.get(id)), 5));
+			LOGGER.info("pign pour  " + nomCandidat + " = " 
+					+ arrondi(combination_cfusion.pignistic(configCadreDiscernement.get(id)), 5));
 		}
 		LOGGER.info("NA : " + arrondi(combination_cfusion.pignistic(configCadreDiscernement.get("NA")), 5));
 
@@ -241,9 +234,6 @@ public class AppariementDST {
 			nomFeatRef = featRef.getNom();
 		}
   
-		// Autres attributs
-		// topoDico.getAttribute(objRef.getNature()).toString()
-  
 		// Liste des noms des distances
 		String[] nomsDistance = new String[this.listCritere.size()];
 		double[] distances = new double[this.listCritere.size()];
@@ -255,18 +245,18 @@ public class AppariementDST {
 		LigneResultat res = new LigneResultat(identifiant, nomFeatRef, attrs, compteurC, "NA", "NA", attrs, distances, nomsDistance, d);
 		listeRes.add(res);
 
- 	int cptMax = 1;
- 	double max = pignisticNA;
- 	String idMax = "NA";
- 	List<Double> listPignistic = new ArrayList<Double>();
- 	listPignistic.add(pignisticNA);
+		int cptMax = 1;
+		double max = pignisticNA;
+		String idMax = "NA";
+		List<Double> listPignistic = new ArrayList<Double>();
+		listPignistic.add(pignisticNA);
 
- 	for (Feature candidat : candidatListe) {
+		for (Feature candidat : candidatListe) {
     
- 		String id = candidat.getId();
- 		compteurC++;
- 		double pignisticCandidat = arrondi(combination_cfusion.pignistic(configCadreDiscernement.get(id)), 5);
- 		listPignistic.add(pignisticCandidat);
+			String id = candidat.getId();
+			compteurC++;
+			double pignisticCandidat = arrondi(combination_cfusion.pignistic(configCadreDiscernement.get(id)), 5);
+			listPignistic.add(pignisticCandidat);
     
  		double conflit = combination_cfusion.getConflit();
  		LOGGER.info("Conflit = " + conflit);
@@ -301,14 +291,14 @@ public class AppariementDST {
  		// Fin rajout ligne tableau
     
     
- 		if (pignisticCandidat > max) {
- 			max = pignisticCandidat;
- 			cptMax = 1;
- 			idMax = id;
- 		} else if (pignisticCandidat == max) {
- 			cptMax++;
- 		}
- 	}
+	 		if (pignisticCandidat > max) {
+	 			max = pignisticCandidat;
+	 			cptMax = 1;
+	 			idMax = id;
+	 		} else if (pignisticCandidat == max) {
+	 			cptMax++;
+	 		}
+		}
 
  	// On trie
  	LOGGER.info(Arrays.toString(listPignistic.toArray()));
