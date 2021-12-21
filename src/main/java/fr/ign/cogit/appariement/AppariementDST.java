@@ -311,42 +311,35 @@ public class AppariementDST {
 			double pignisticMaxMoinsUn = listPignistic.get(listPignistic.size() - 2);
 			double difference = Math.abs(pignisticMaxMoinsUn - max);
     
-    
-//    LOGGER.info("max1 = " + max + " et max2 = " + pignisticMaxMoinsUn);
-//    LOGGER.info("max2 - max1 = " + Math.abs(pignisticMaxMoinsUn - max));
-//    LOGGER.info("max1 - max2 = " + Math.abs(max - pignisticMaxMoinsUn));
-    if (difference < this.seuilIndecision) {
-      
-      // cas 1
-//      LOGGER.info("Candidats trop proches");
-//      compteurIndecis++;
-      for (LigneResultat res2 : listeRes) {
-        res2.initDecision("indécis");
-      }
-      
-    } else {
-//      LOGGER.info("On a un bon candidat : " + idMax + "(" + max + ")");
-      LOGGER.log(Level.FINE, "diff = " + difference);
-      for (LigneResultat res2 : listeRes) {
-        res2.initProbaPignistiqueSecond(difference);
-        if (idMax.equals(res2.getIdTopoComp())) {
-          res2.initDecision("true");
-        } else {
-          res2.initDecision("false");
-        }
-      }
-    }
-
-      
-    } else {
-      // Même cas 1
-      for (LigneResultat res2 : listeRes) {
-        res2.initDecision("indécis");
-      }
-    }
+			// LOGGER.info("max1 = " + max + " et max2 = " + pignisticMaxMoinsUn);
+			// LOGGER.info("max2 - max1 = " + Math.abs(pignisticMaxMoinsUn - max));
+			// LOGGER.info("max1 - max2 = " + Math.abs(max - pignisticMaxMoinsUn));
+			if (difference < this.seuilIndecision) {
+				// cas 1
+				// LOGGER.info("Candidats trop proches");
+				// compteurIndecis++;
+				for (LigneResultat res2 : listeRes) {
+					res2.initDecision("indécis");
+				}
+			} else {
+				// LOGGER.info("On a un bon candidat : " + idMax + "(" + max + ")");
+				LOGGER.log(Level.FINE, "diff = " + difference);
+				for (LigneResultat res2 : listeRes) {
+					res2.initProbaPignistiqueSecond(difference);
+					if (idMax.equals(res2.getIdTopoComp())) {
+						res2.initDecision("true");
+					} else {
+						res2.initDecision("false");
+					}
+				}
+			}
+		} else {
+			// Même cas 1
+			for (LigneResultat res2 : listeRes) {
+				res2.initDecision("indécis");
+			}
+		}
   
-
-
   //    ConfigurationSet<String> conf = combination_cfusion.decide(true);
   //    for (int i = 0; i < conf.size(); i++) {
   //      if (conf.hasConfiguration(i)) {
