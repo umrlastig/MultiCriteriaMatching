@@ -103,14 +103,6 @@ public class TestCritereToponymique extends TestCase {
         Assert.assertEquals("", ct.getMasse()[2], 1.0, 0.0001);
 	}
 	
-	
-//	public void testLevenshtein() {
-//		DistanceLevenshtein ds = new DistanceLevenshtein();
-//        CritereToponymique ct = new CritereToponymique(ds);
-//        ct.setSeuil(0.60);
-//	}
-	
-	
 	public void testGraphies1() throws Exception {
 		DistanceLevenshtein ds = new DistanceLevenshtein();
         CritereToponymique ct = new CritereToponymique(ds);
@@ -174,4 +166,11 @@ public class TestCritereToponymique extends TestCase {
         Assert.assertEquals("", ct.getMasse()[2], 0.0, 0.0001);
 	}
 
+	
+//	public void testLevenshtein() {
+//	DistanceLevenshtein ds = new DistanceLevenshtein();
+//    CritereToponymique ct = new CritereToponymique(ds);
+//    ct.setSeuil(0.60);
+//}
+	
 }
