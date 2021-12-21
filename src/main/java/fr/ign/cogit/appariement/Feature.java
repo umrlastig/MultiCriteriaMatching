@@ -36,6 +36,9 @@ public class Feature {
 	public List<String> getGraphies() { return this.graphies; }
 	
 	public String getId() { return this.attributs.get(NOM_CLE_ID).toString(); }
-	public String getNom() { return this.attributs.get(NOM_CLE_NOM).toString(); }
+	public String getNom() {
+		if (this.attributs.get(NOM_CLE_NOM) == null) return null;
+		return this.attributs.get(NOM_CLE_NOM).toString(); 
+	}
 	public String getUri() { return this.attributs.get(NOM_CLE_NATURE).toString(); }
 }

@@ -84,6 +84,25 @@ public class TestCritereToponymique extends TestCase {
         Assert.assertEquals("", ct.getMasse()[2], 1.0, 0.0001);
 	}
 	
+	public void testSamal5() throws Exception {
+		DistanceSamal ds = new DistanceSamal();
+        CritereToponymique ct = new CritereToponymique(ds);
+        ct.setSeuil(0.60); 
+        
+        Feature f1 = new Feature(null);
+        f1.addAttribut("nom", "Charles de Gaulle");
+        
+        Feature f2 = new Feature(null);
+        f2.addAttribut("nom", null);
+        
+        // d = 0.8452380952380952
+        ct.setFeature(f1, f2);
+        
+        Assert.assertEquals("", ct.getMasse()[0], 0.0, 0.0001);
+        Assert.assertEquals("", ct.getMasse()[1], 0.0, 0.0001);
+        Assert.assertEquals("", ct.getMasse()[2], 1.0, 0.0001);
+	}
+	
 	
 //	public void testLevenshtein() {
 //		DistanceLevenshtein ds = new DistanceLevenshtein();
