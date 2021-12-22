@@ -241,8 +241,8 @@ public class AppariementDST {
 			nomsDistance[c] = this.listCritere.get(c).getDistance().getNom();
 		}
   
-		String[] attrs = null;
-		LigneResultat res = new LigneResultat(identifiant, nomFeatRef, attrs, compteurC, "NA", "NA", attrs, distances, nomsDistance, d);
+		LigneResultat res = new LigneResultat(identifiant, nomFeatRef, featRef.getUri(), 
+				compteurC, "NA", "NA", "", distances, nomsDistance, d);
 		listeRes.add(res);
 
 		int cptMax = 1;
@@ -281,11 +281,10 @@ public class AppariementDST {
 	 		}
         
 	 		// Rajout ligne tableau
-	 			// String[] attrs = null;
 	 		//          topoDico.getAttribute(this.objRef.getNature()).toString()
 	 		//          candidat.getAttribute(this.objComp.getNature()).toString()
-	 		LigneResultat res2 = new LigneResultat(identifiant, nomRef, attrs, 
-	 				compteurC, id, nomComp,  attrs, distances, nomsDistance, pignisticCandidat);
+	 		LigneResultat res2 = new LigneResultat(identifiant, nomRef, featRef.getUri(), 
+	 				compteurC, id, nomComp,  candidat.getUri(), distances, nomsDistance, pignisticCandidat);
 	 		res2.setGeom(featRef.getGeom(), candidat.getGeom());
 	 		listeRes.add(res2);
 	 		// Fin rajout ligne tableau

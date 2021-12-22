@@ -26,11 +26,11 @@ public class LigneResultat {
   
   private String idTopoRef;
   private String nomTopoRef;
-  private String[] attrsTopoRef;
+  private String uriTopoRef;
   
   private String idTopoComp;
   private String nomTopoComp;
-  private String[] attrsTopoComp;
+  private String uriTopoComp;
   
   private double[] distances;
   private String[] nomsDistance;
@@ -48,20 +48,20 @@ public class LigneResultat {
    * Constructeur.
    * 
    */
-  public LigneResultat(String idTopoRef, String nomTopoRef, String[] attrsTopoRef, 
+  public LigneResultat(String idTopoRef, String nomTopoRef, String uriTopoRef, 
           int compteurC, 
-          String idTopoComp, String nomTopoComp, String[] attrsTopoComp, 
+          String idTopoComp, String nomTopoComp, String uriTopoComp, 
       double[] distances, String[] nomsDistance, double probaPignistiquePremier) {
     
       this.idTopoRef = idTopoRef;
       this.nomTopoRef = nomTopoRef;
-      this.attrsTopoRef = attrsTopoRef;
+      this.uriTopoRef = uriTopoRef;
     
       this.compteurC = compteurC;
       
       this.idTopoComp = idTopoComp;
       this.nomTopoComp = nomTopoComp;
-      this.attrsTopoComp = attrsTopoComp;
+      this.uriTopoComp = uriTopoComp;
     
       this.probaPignistiquePremier = probaPignistiquePremier;
       this.distances = distances;
@@ -97,11 +97,8 @@ public class LigneResultat {
     return this.nomTopoRef;
   }
   
-  public String getAttrTopoRef(int i) {
-      if (i < this.attrsTopoRef.length) {
-          return this.attrsTopoRef[i];
-      } 
-      return "";
+  public String getUriTopoRef() {
+      return this.uriTopoRef;
   }
   
   public int getCompteurC() {
@@ -116,11 +113,8 @@ public class LigneResultat {
     return this.nomTopoComp;
   }
   
-  public String getAttrTopoComp(int i) {
-      if (i < this.attrsTopoComp.length) {
-          return this.attrsTopoComp[i];
-      }
-      return "";
+  public String getUriTopoComp() {
+	  return this.uriTopoComp;
   }
   
   public double getProbaPignistiquePremier() {

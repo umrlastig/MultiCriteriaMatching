@@ -40,5 +40,8 @@ public class Feature {
 		if (this.attributs.get(NOM_CLE_NOM) == null) return null;
 		return this.attributs.get(NOM_CLE_NOM).toString(); 
 	}
-	public String getUri() { return this.attributs.get(NOM_CLE_NATURE).toString(); }
+	public String getUri() { 
+		if (this.attributs.get(NOM_CLE_NATURE) == null) return null;
+		return this.attributs.get(NOM_CLE_NATURE).toString(); 
+	}
 }

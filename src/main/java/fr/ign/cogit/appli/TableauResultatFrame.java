@@ -19,11 +19,7 @@ import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -33,9 +29,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
-
-import com.ibm.icu.text.SimpleDateFormat;
 
 import fr.ign.cogit.appariement.LigneResultat;
 
@@ -62,6 +55,8 @@ public class TableauResultatFrame implements ActionListener {
 	private static final String COL_NAME_CLE_COMP = "ID candidat";
 	private static final String COL_NAME_NOM_REF = "Nom ref";
 	private static final String COL_NAME_NOM_COMP = "Nom candidat";
+	private static final String COL_NAME_URI_REF = "URI ref";
+	private static final String COL_NAME_URI_COMP = "URI candidat";
 	private static final String COL_NAME_PIGN_C1 = "Proba pign premier";
 	private static final String COL_NAME_PIGN_C2 = "Proba pign second";
 	private static final String COL_NAME_DECISION = "Decision";
@@ -70,7 +65,6 @@ public class TableauResultatFrame implements ActionListener {
 	private Vector<String> columnNames = new Vector<String>();
 	
 	public void displayEnsFrame(String title, List<LigneResultat> listeResultat) {
-
 		this.listeResultat = listeResultat;
 
 		frame = new JFrame(title);
@@ -136,8 +130,8 @@ public class TableauResultatFrame implements ActionListener {
 			rowOne.addElement(res.getNomTopoComp());
 
 			// Autres attributs
-			// rowOne.addElement(res.getTypeTopoRef());
-			// rowOne.addElement(res.getTypeTopoComp());
+			rowOne.addElement(res.getUriTopoRef());
+			rowOne.addElement(res.getUriTopoComp());
 
 			for (int c = 0; c < this.listeResultat.get(i).getDistances().length; c++) {
 				double d = this.listeResultat.get(i).getDistance(c);
@@ -163,8 +157,8 @@ public class TableauResultatFrame implements ActionListener {
 		columnNames.addElement(COL_NAME_NOM_REF);
 		columnNames.addElement(COL_NAME_NOM_COMP);
 
-		// columnNames.addElement("Nature ref");
-		// columnNames.addElement("Nature comp");
+		columnNames.addElement(COL_NAME_URI_REF);
+		columnNames.addElement(COL_NAME_URI_COMP);
 
 		for (int c = 0; c < this.listeResultat.get(0).getDistances().length; c++) {
 			columnNames.addElement(this.listeResultat.get(0).getNomDistance(c));
@@ -194,41 +188,6 @@ public class TableauResultatFrame implements ActionListener {
 
 		resultatPanel.add(tableau.getTableHeader(), BorderLayout.NORTH);
 		resultatPanel.add(new JScrollPane(tableau), BorderLayout.CENTER);
-	}
-
-	public void exportToCSV() {
-
-		try {
-			String pathToExportTo = "./data/resultat/app-"
-					+ new SimpleDateFormat("yyyyMMdd-HHmmssSSS", Locale.FRANCE).format(new Date()) + ".csv";
-			FileWriter excel = new FileWriter(new File(pathToExportTo));
-
-			// Nom des colonnes
-			TableModel model = tableau.getModel();
-			for (int i = 0; i < model.getColumnCount(); i++) {
-				excel.write(model.getColumnName(i) + ";");
-			}
-			excel.write("\n");
-
-			// Toutes les lignes
-			for (int i = 0; i < model.getRowCount(); i++) {
-				for (int j = 0; j < model.getColumnCount(); j++) {
-					if (model.getValueAt(i, j) == null) {
-						excel.write("" + ";");
-					} else {
-						excel.write(model.getValueAt(i, j).toString() + ";");
-					}
-				}
-				excel.write("\n");
-			}
-
-			// Fermeture du fichier
-			excel.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
 	}
 
 	/**

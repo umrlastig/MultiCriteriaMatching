@@ -78,7 +78,7 @@ public class ExportToCSV {
 			excel.write("# ---------------------------------------------------------\n");
 			
 			// Nom des colonnes
-			String nom_colonne = "ID_REF;NOM_REF;NUM_CANDIDAT;ID_CANDIDAT;NOM_CANDIDAT;";
+			String nom_colonne = "ID_REF;NOM_REF;NUM_CANDIDAT;ID_CANDIDAT;NOM_CANDIDAT;URI_REF;URI_CANDIDAT;";
 			for (int c = 0; c < listeResultat.get(0).getDistances().length; c++) {
 				nom_colonne = nom_colonne + listeResultat.get(0).getNomDistance(c) + ";";
 			}
@@ -100,6 +100,8 @@ public class ExportToCSV {
 				ligne = ligne + listeResultat.get(i).getIdTopoComp() + ";";
 				ligne = ligne + listeResultat.get(i).getNomTopoComp() + ";";
 				
+				ligne = ligne + listeResultat.get(i).getUriTopoRef() + ";";
+				ligne = ligne + listeResultat.get(i).getUriTopoComp() + ";";
 				
 				// DISTANCE
 				for (int c = 0; c < listeResultat.get(i).getDistances().length; c++) {

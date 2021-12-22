@@ -59,6 +59,7 @@ public class CritereSemantique extends CritereAbstract implements Critere {
 		
 		String valTypeRef = featureRef.getUri();
 		String valTypeComp = featureComp.getUri();
+		// System.out.println(valTypeRef + "---" + valTypeComp);
 		
 		((DistanceAbstractSemantique) distance).setType(valTypeComp, valTypeRef);
 		double distNorm = distance.getDistance();
