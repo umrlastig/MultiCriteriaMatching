@@ -12,18 +12,17 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 [![Software License](https://img.shields.io/badge/Licence-Cecill--C-blue.svg?style=flat)](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 
-
 # README Contents
-
-- Development & Contributions
-    - [License](#License)
-    - [Authors](#Authors)
-	- [Institute](#Institute)
+- [Development & Contributions](Development & Contributions)
+    - License
+    - Authors
+	- Institute
 - [Using the Java library](#Using the Java library)
 - [Launch the data matching code](#Launch the data matching code)
 - [Publication](#Publication)
-	- [Presentation of the data matching using Belief Theory method][Presentation of the data matching using Belief Theory method]
-	- [Scientific Publications where the library was used][Scientific Publications where the library was used]
+	- [Presentation of the data matching using Belief Theory method][#Presentation of the data matching using Belief Theory method]
+	- [Scientific Publications where the library was used][#Scientific Publications where the library was used]
+
 
 
 # Development & Contributions
