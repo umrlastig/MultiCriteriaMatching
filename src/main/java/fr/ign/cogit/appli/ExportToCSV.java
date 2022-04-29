@@ -72,6 +72,7 @@ public class ExportToCSV {
 			
 			excel.write("# ---------------------------------------------------------\n");
 			excel.write("# Distances associées aux critères: " + distances + "\n");
+			excel.write("# Attributs: URI\n");
 			excel.write("# Seuil d'indecision: " + seuilIndecision + "\n");
 			excel.write("# Seuils des critères: " + seuils + "\n");
 			excel.write("# Type de la géométrie: " + typeGeometrie + "\n");
@@ -100,8 +101,8 @@ public class ExportToCSV {
 				ligne = ligne + listeResultat.get(i).getIdTopoComp() + ";";
 				ligne = ligne + listeResultat.get(i).getNomTopoComp() + ";";
 				
-				ligne = ligne + listeResultat.get(i).getUriTopoRef() + ";";
-				ligne = ligne + listeResultat.get(i).getUriTopoComp() + ";";
+				ligne = ligne + "\"" + listeResultat.get(i).getUriTopoRef() + "\";";
+				ligne = ligne + "\"" + listeResultat.get(i).getUriTopoComp() + "\";";
 				
 				// DISTANCE
 				for (int c = 0; c < listeResultat.get(i).getDistances().length; c++) {
