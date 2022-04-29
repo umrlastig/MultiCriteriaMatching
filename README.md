@@ -6,7 +6,7 @@ L’algorithme d’appariement se base sur un jeu de données de référence et 
 l’appariement (pour chaque donnée du jeu de référence, l’algorithme recherche les données homologues et candidates dans le jeu de comparaison). 
 Mentionnons que le jeu de données de référence peut être un jeu de données faisant autorité ou un jeu de données collaboratif.
 
-# README Contents
+# Contents
 - [Development & Contributions](#Development-&-Contributions)
     - License
     - Authors
