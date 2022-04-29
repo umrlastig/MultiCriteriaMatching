@@ -27,12 +27,6 @@ Features matching with Dempster-Shafer Theory as implements in the Evidence4J li
 	- Imran Lokhat
 
 
-# README Contents
-
-* [**User Guide**](#user-guide) - Installing and using MultiCriteriaMatching
-* [**Using MultiCriteriaMatching with Maven**](#)
-
-
 # Using the Java library
 - source code: https://github.com/IGNF/MultiCriteriaMatching
 - with *Maven* in a Java project:
