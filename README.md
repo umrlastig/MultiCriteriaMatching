@@ -13,12 +13,12 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 
 # README Contents
-- [Development & Contributions](Development & Contributions)
+- [Development & Contributions](#Development-&-Contributions)
     - License
     - Authors
 	- Institute
-- [Using the Java library](#Using the Java library)
-- [Launch the data matching code](#Launch the data matching code)
+- [Using the Java library](#Using-the-Java-library)
+- [Launch the data matching code](#Launch-the-data-matching-code)
 - [Publication](#Publication)
 	- [Presentation of the data matching using Belief Theory method][#Presentation of the data matching using Belief Theory method]
 	- [Scientific Publications where the library was used][#Scientific Publications where the library was used]
