@@ -62,7 +62,8 @@ De manière globale, faire un appariement multi-critères entre un objet de réf
 
 
 # Use Cases
-* Olteanu Raimond, AM., Mustière, S. (2008). [Data Matching – a Matter of Belief](https://doi.org/10.1007/978-3-540-68566-1_29). In: Ruas, A., Gold, C. (eds) Headway in Spatial Data Handling. Lecture Notes in Geoinformation and Cartography. Springer, Berlin, Heidelberg. 
-* G. Touya, V. Antoniou, A.-M. Olteanu-Raimond, M.-D. Van Damme, [Assessing Crowdsourced POI Quality: Combining Methods Based on Reference Data, History, and Spatial Relations](https://doi.org/10.3390/ijgi6030080). ISPRS Int. J. Geo-Inf. 2017, 6, 80.  
-* [Marie-Dominique Van Damme, Ana-Maria Olteanu-Raimond, Yann Méneroux. Potential of crowdsourced data for integrating landmarks and routes for rescue in mountain areas. International Journal of Cartography, Taylor & Francis, 2019, 5 (2-3), pp.195-213.](https://dx.doi.org/10.1080/23729333.2019.1615730) 
-* [Olteanu Raimond, Ana-Maria & Mustiere, Sebastien & Ruas, Anne. (2015). Knowledge formalization for vector data matching using Belief Theory. JOURNAL OF SPATIAL INFORMATION SCIENCE. in press.](http://dx.doi.org/10.5311/JOSIS.2015.10.194) 
+- Olteanu Raimond, AM., Mustière, S. (2008). [Data Matching – a Matter of Belief](https://doi.org/10.1007/978-3-540-68566-1_29). In: Ruas, A., Gold, C. (eds) Headway in Spatial Data Handling. Lecture Notes in Geoinformation and Cartography. Springer, Berlin, Heidelberg. 
+- Olteanu Raimond, Ana-Maria & Mustiere, Sebastien & Ruas, Anne. (2015). [Knowledge formalization for vector data matching using Belief Theory](http://dx.doi.org/10.5311/JOSIS.2015.10.194). JOURNAL OF SPATIAL INFORMATION SCIENCE. in press. 
+- G. Touya, V. Antoniou, A.-M. Olteanu-Raimond, M.-D. Van Damme, [Assessing Crowdsourced POI Quality: Combining Methods Based on Reference Data, History, and Spatial Relations](https://doi.org/10.3390/ijgi6030080). ISPRS Int. J. Geo-Inf. 2017, 6, 80.  
+- [Marie-Dominique Van Damme, Ana-Maria Olteanu-Raimond, Yann Méneroux. Potential of crowdsourced data for integrating landmarks and routes for rescue in mountain areas. International Journal of Cartography, Taylor & Francis, 2019, 5 (2-3), pp.195-213.](https://dx.doi.org/10.1080/23729333.2019.1615730) 
+
