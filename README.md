@@ -19,8 +19,8 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 	- Données
 	- [Résultats](#Résultats)
 - [Publication](#Publication)
-	- [Presentation of the data matching using Belief Theory method][#Presentation of the data matching using Belief Theory method]
-	- [Scientific Publications where the library was used][#Scientific Publications where the library was used]
+	- [Presentation of the data matching using Belief Theory method][#Presentation-of-the-data-matching-using-Belief-Theory-method]
+	- [Scientific Publications where the library was used][#Scientific-Publications-where-the-library-was-used]
 
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
