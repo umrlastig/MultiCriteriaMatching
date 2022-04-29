@@ -296,7 +296,7 @@ tableauPanel.displayEnsFrame("tests", lres);
 ## Scientific Publications where the library was used
 <ul>
 <li> G. Touya, V. Antoniou, A.-M. Olteanu-Raimond, M.-D. Van Damme, <a href='https://doi.org/10.3390/ijgi6030080'>Assessing Crowdsourced POI Quality: Combining Methods Based on Reference Data, History, and Spatial Relations</a>. ISPRS Int. J. Geo-Inf. 2017, 6, 80.  </li>
-<li> Marie-Dominique Van Damme, Ana-Maria Olteanu-Raimond, Yann Méneroux. <a href='https://dx.doi.org/10.1080/23729333.2019.1615730'>Potential of crowdsourced data for integrating landmarks and routes for rescue in mountain areas</a>. International Journal of Cartography, Taylor & Francis, 2019, 5 (2-3), pp.195-213.] </li>
+<li> Marie-Dominique Van Damme, Ana-Maria Olteanu-Raimond, Yann Méneroux. <a href='https://dx.doi.org/10.1080/23729333.2019.1615730'>Potential of crowdsourced data for integrating landmarks and routes for rescue in mountain areas</a>. International Journal of Cartography, Taylor & Francis, 2019, 5 (2-3), pp.195-213. </li>
 </ul>
 
 
