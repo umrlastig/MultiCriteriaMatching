@@ -6,12 +6,6 @@ L’algorithme d’appariement se base sur un jeu de données de référence et 
 l’appariement (pour chaque donnée du jeu de référence, l’algorithme recherche les données homologues et candidates dans le jeu de comparaison). 
 Mentionnons que le jeu de données de référence peut être un jeu de données faisant autorité ou un jeu de données collaboratif.
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CircleCI](https://img.shields.io/circleci/project/github/umrlastig/MultiCriteriaMatching/master.svg?style=flat-square&label=CircleCI)](https://circleci.com/gh/umrlastig/MultiCriteriaMatching)
-[![codecov](https://codecov.io/gh/umrlastig/MultiCriteriaMatching/branch/master/graph/badge.svg?token=pHLaV21j2O)](https://codecov.io/gh/umrlastig/MultiCriteriaMatching)
-[![Software License](https://img.shields.io/badge/Licence-Cecill--C-blue.svg?style=flat)](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
-
 # README Contents
 - [Development & Contributions](#Development-&-Contributions)
     - License
@@ -19,10 +13,21 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 	- Institute
 - [Using the Java library](#Using-the-Java-library)
 - [Launch the data matching code](#Launch-the-data-matching-code)
+	- Appariement
+	- Critères
+	- Distance
+	- Données
+	- Résultats
 - [Publication](#Publication)
 	- [Presentation of the data matching using Belief Theory method][#Presentation of the data matching using Belief Theory method]
 	- [Scientific Publications where the library was used][#Scientific Publications where the library was used]
 
+
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![CircleCI](https://img.shields.io/circleci/project/github/umrlastig/MultiCriteriaMatching/master.svg?style=flat-square&label=CircleCI)](https://circleci.com/gh/umrlastig/MultiCriteriaMatching)
+[![codecov](https://codecov.io/gh/umrlastig/MultiCriteriaMatching/branch/master/graph/badge.svg?token=pHLaV21j2O)](https://codecov.io/gh/umrlastig/MultiCriteriaMatching)
+[![Software License](https://img.shields.io/badge/Licence-Cecill--C-blue.svg?style=flat)](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
 
 
 # Development & Contributions
