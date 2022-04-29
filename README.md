@@ -1,14 +1,11 @@
 # Multi Criteria Matching (Dempster-Shafer Theory)
 
-Features matching with Dempster-Shafer Theory as implements in the Evidence4J library
+Appariement de données multicritères basé sur la théorie des fonctions de croyances implémentée dans la librairie Evidence4J.
 
-<> Appariement de données multicritères basé sur la théorie des fonctions de croyances implémentée dans la librairie Evidence4J.
-+
-+## Appariement multi-critères
-+L’algorithme d’appariement se base sur un jeu de données de référence et sur un jeu de données de comparaison donnant ainsi une direction à 
-+l’appariement (pour chaque donnée du jeu de référence, l’algorithme recherche les données homologues et candidates dans le jeu de comparaison). 
-+Mentionnons que le jeu de données de référence peut être un jeu de données faisant autorité ou un jeu de données collaboratif.
-+
+L’algorithme d’appariement se base sur un jeu de données de référence et sur un jeu de données de comparaison donnant ainsi une direction à 
+l’appariement (pour chaque donnée du jeu de référence, l’algorithme recherche les données homologues et candidates dans le jeu de comparaison). 
+Mentionnons que le jeu de données de référence peut être un jeu de données faisant autorité ou un jeu de données collaboratif.
+
 
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
