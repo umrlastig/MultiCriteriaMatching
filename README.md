@@ -13,7 +13,7 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 	- Institute
 - [Using the Java library](#Using-the-Java-library)
 - [Launch the data matching code](#Launch-the-data-matching-code)
-	- Appariement
+	- Appariement(#Appariement)
 	- Critères
 	- Distance
 	- Données
@@ -57,7 +57,8 @@ To include *MultiCriteriaMatching* in a Maven project, add a dependency block li
 
 # Launch the data matching code
 
-De manière globale, faire un appariement multi-critères entre un objet de référence et des potentiels candidats à apparier, en utilisant la librairie `MultiCriteriaMatching`, consiste à :
+De manière globale, faire un appariement multi-critères entre un objet de référence et des potentiels candidats à apparier, 
+en utilisant la librairie `MultiCriteriaMatching`, consiste à :
 * instancier un "objet appariement"
 * créer une liste de critères, avec pour chacun, une distance associée
 * affecter la liste de critères précédemment définie à l'appariement
@@ -137,7 +138,7 @@ La méthode la plus importante est `getMasse()` qui doit renvoyer un tableau de 
 
 À chaque critère est associée une distance.
 
-### Distance
+## Distance
 Une distance doit implémenter l'interface `fr.ign.cogit.distance.Distance`. Un certain nombre de distances sont déjà implémentées dans `fr.ign.cogit.distance` classées suivant qu'elle soient sémantiques, géométriques ou concernent du texte.
 
 Il n'y a en réalité que deux méthodes à implémenter :
