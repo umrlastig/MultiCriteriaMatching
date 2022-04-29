@@ -13,11 +13,11 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 	- Institute
 - [Using the Java library](#Using-the-Java-library)
 - [Launch the data matching code](#Launch-the-data-matching-code)
-	- Appariement(#Appariement)
+	- [Appariement](#Appariement)
 	- Critères
 	- Distance
 	- Données
-	- Résultats
+	- [Résultats](#Résultats)
 - [Publication](#Publication)
 	- [Presentation of the data matching using Belief Theory method][#Presentation of the data matching using Belief Theory method]
 	- [Scientific Publications where the library was used][#Scientific Publications where the library was used]
