@@ -22,9 +22,9 @@ Features matching with Dempster-Shafer Theory as implements in the Evidence4J li
 * Institute: LASTIG, Univ Gustave Eiffel, ENSG, IGN
 * License: Cecill-C
 * Authors:
-- Marie-Dominique Van Damme
-- Ana-Maria Raimond
-- Imran Lokhat
+	- Marie-Dominique Van Damme
+	- Ana-Maria Raimond
+	- Imran Lokhat
 
 
 # README Contents
