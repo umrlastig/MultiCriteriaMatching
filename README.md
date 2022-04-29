@@ -286,7 +286,7 @@ tableauPanel.displayEnsFrame("tests", lres);
 
 # Publication
 
-## Presentation of the data matching using Belief Theory method
+## Presentations of the data matching using Belief Theory method
 <ul>
 <li> Olteanu Raimond, AM., Mustière, S. (2008). <a href='https://doi.org/10.1007/978-3-540-68566-1_29'>Data Matching - a Matter of Belief</a>. In: Ruas, A., Gold, C. (eds) Headway in Spatial Data Handling. Lecture Notes in Geoinformation and Cartography. Springer, Berlin, Heidelberg. </li>
 <li> Olteanu Raimond, Ana-Maria & Mustiere, Sebastien & Ruas, Anne. (2015). <a href='http://dx.doi.org/10.5311/JOSIS.2015.10.194'>Knowledge formalization for vector data matching using Belief Theory</a>. JOURNAL OF SPATIAL INFORMATION SCIENCE. in press. </li>
