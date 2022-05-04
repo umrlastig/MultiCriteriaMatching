@@ -138,8 +138,8 @@ public class AppariementDST {
 		csNSP.addAllConfigurations();
 
 		/*
-		 * -------------------The mass potentials---------------------- In the
-		 * Appriou's framework, each mass function is divided in sub-masses. In
+		 * -------------------The mass potentials---------------------- 
+		 * In the Appriou's framework, each mass function is divided in sub-masses. In
 		 * the original example, 2 mass functions are defined, thus we have to
 		 * create 6 mass potentials.
 		 */
@@ -208,6 +208,9 @@ public class AppariementDST {
 		// since they are just intermediary results
 		MassPotential<String> combination_cfusion = MassPotential.combination(cfusion, false);
 		combination_cfusion.check();
+		
+		// System.out.println(combination_cfusion);
+		
   
 		double conflit1 = combination_cfusion.getConflit();
 		LOGGER.info("conflit = " + conflit1);
@@ -219,7 +222,10 @@ public class AppariementDST {
 		for (Feature candidat : candidatListe) {
 			String id = candidat.getId();
 			String nomCandidat = "";
-			LOGGER.info("pign pour  " + nomCandidat + " = " 
+	 		if (candidat.getNom() != null && candidat.getNom() != "") {
+	 			nomCandidat = candidat.getNom();
+	 		}
+			LOGGER.info("pign pour " + nomCandidat + " = " 
 					+ arrondi(combination_cfusion.pignistic(configCadreDiscernement.get(id)), 5));
 		}
 		LOGGER.info("NA : " + arrondi(combination_cfusion.pignistic(configCadreDiscernement.get("NA")), 5));
@@ -227,7 +233,8 @@ public class AppariementDST {
 		// Décision
 		compteurC++;
 		double pignisticNA = arrondi(combination_cfusion.pignistic(configCadreDiscernement.get("NA")), 5);
-
+		// System.out.println("Pign NA = " + pignisticNA);
+		
 		Double d = new Double(pignisticNA);
 		String nomFeatRef = "NR";
 		if (featRef.getNom() != null) {
@@ -250,6 +257,8 @@ public class AppariementDST {
 		String idMax = "NA";
 		List<Double> listPignistic = new ArrayList<Double>();
 		listPignistic.add(pignisticNA);
+		
+		
 
 		for (Feature candidat : candidatListe) {
     
@@ -270,6 +279,8 @@ public class AppariementDST {
 	 		if (candidat.getNom() != null && candidat.getNom() != "") {
 	 			nomComp = candidat.getNom();
 	 		}
+	 		
+	 		System.out.println("Pign " + nomComp +" = " + Arrays.toString(distances));
     
 	 		distances = new double[this.listCritere.size()];
 	 		for (int c = 0; c < this.listCritere.size(); c++) {
@@ -371,8 +382,8 @@ public class AppariementDST {
 }  
 
 
-  public static double arrondi(double A, int B) {
-    return (double) ( (int) (A * Math.pow(10, B) + .5)) / Math.pow(10, B);
-  }
+	public static double arrondi(double A, int B) {
+		return (double) ( (int) (A * Math.pow(10, B) + .5)) / Math.pow(10, B);
+	}
   
 }
