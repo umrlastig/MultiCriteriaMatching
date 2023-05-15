@@ -13,11 +13,12 @@
  */
 package fr.ign.cogit.distance.geom;
 
+import org.locationtech.jts.geom.GeometryFactory;
+import org.locationtech.jts.geom.LineString;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.operation.distance.DistanceOp;
+
 import fr.ign.cogit.distance.Distance;
-//import fr.ign.cogit.geoxygene.api.spatial.coordgeom.ILineString;
-//import fr.ign.cogit.geoxygene.contrib.geometrie.Distances;
-//import fr.ign.cogit.geoxygene.spatial.coordgeom.GM_LineString;
-//import fr.ign.cogit.geoxygene.spatial.geomaggr.GM_MultiCurve;
 
 /**
  * 
@@ -25,23 +26,30 @@ import fr.ign.cogit.distance.Distance;
  */
 public class DistanceDirectedHausdorff extends DistanceAbstractGeom implements Distance {
 	  
+   /**
+	* Approximation de la première composante de Hausdorff d'une ligne vers une
+	* autre. Elle est calculee comme le maximum des distances des points
+	* intermédiaires de la première ligne L1 à l'autre ligne L2.
+	*/
 	@Override
 	public double getDistance() {
-//		if (this.geomRef instanceof ILineString && this.geomComp instanceof ILineString) {
-//			ILineString geomLigneRef = (ILineString) this.geomRef;
-//			ILineString geomLigneComp = (ILineString) this.geomComp;
-//			return Distances.premiereComposanteHausdorff(geomLigneRef, geomLigneComp);
-//		} else if (this.geomComp instanceof GM_MultiCurve && this.geomRef instanceof ILineString) {
-//			GM_LineString geomLigneComp = (GM_LineString)((GM_MultiCurve<?>)this.geomComp).get(0);
-//			ILineString geomLigneRef = (ILineString) this.geomRef;
-//			return Distances.premiereComposanteHausdorff(geomLigneRef, geomLigneComp);
-//		} else {
-			return Float.MAX_VALUE;
-//		}
+		LineString l1 = (LineString) this.geomComp;
+		LineString l2 = (LineString) this.geomRef;
+		
+		GeometryFactory factory = new GeometryFactory();
+		
+		double result = 0;
+	    for (int i = 0; i < l1.getCoordinates().length; i++) {
+	    	Point p = factory.createPoint(l1.getCoordinateN(i));
+	    	DistanceOp dist = new DistanceOp(p, l2);
+	    	double d = dist.distance();
+	    	result = Math.max(d, result);
+	    }
+	    return result;
 	}
 
 	@Override
 	public String getNom() {
-		return "DirectedHausdorff";
+		return "premiereComposanteHausdorff";
 	}
 }

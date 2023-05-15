@@ -280,7 +280,7 @@ public class AppariementDST {
 	 			nomComp = candidat.getNom();
 	 		}
 	 		
-	 		System.out.println("Pign " + nomComp +" = " + Arrays.toString(distances));
+	 		// System.out.println("Pign " + nomComp +" = " + Arrays.toString(distances));
     
 	 		distances = new double[this.listCritere.size()];
 	 		for (int c = 0; c < this.listCritere.size(); c++) {
