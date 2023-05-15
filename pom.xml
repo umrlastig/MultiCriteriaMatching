@@ -2,14 +2,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    
     <groupId>fr.ign.cogit</groupId>
     <artifactId>MultiCriteriaMatching</artifactId>
     <version>1.0-SNAPSHOT</version>
+    
     <name>MultiCriteriaMatching</name>
     <description>Features matching with Dempster-Shafer Theory as implements in the Evidence4J library.</description>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
         <testSourceDirectory>src/test/java</testSourceDirectory>
@@ -48,6 +52,7 @@
             </plugin>
         </plugins>
     </build>
+    
     <dependencies>
         <dependency>
             <groupId>fr.ign.cogit</groupId>
@@ -92,6 +97,7 @@
             <version>70.1</version>
         </dependency>
     </dependencies>
+    
     <!-- =========================================================== -->
     <!-- Repository -->
     <!-- =========================================================== -->
@@ -126,7 +132,13 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
+        <repository>
+            <id>github</id>
+            <name>GitHub IGNF evidence4j Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/IGNF/evidence4j</url>
+        </repository>
     </repositories>
+    
     <!-- =========================================================== -->
     <!-- Plugin Repositories -->
     <!-- =========================================================== -->
@@ -140,4 +152,5 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+    
 </project>
