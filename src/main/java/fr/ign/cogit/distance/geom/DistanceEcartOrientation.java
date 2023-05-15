@@ -140,7 +140,7 @@ public class DistanceEcartOrientation extends DistanceAbstractGeom implements Di
 		else {c1=coords[1]; c2=coords[2]; }
 
 		// calcul de l'orientation du plus long cote
-		double angle = Math.atan((c1.y-c2.y)/(c1.x-c2.x));
+		double angle = Math.atan((c1.y - c2.y) / (c1.x - c2.x));
 		if (angle < 0) angle += Math.PI;
 		return angle;
 	}
