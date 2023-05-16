@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 
@@ -66,6 +67,8 @@ public class ExportToCSV {
 				typeGeometrie = "POINT";
 			} else if (listeResultat.get(1).getGeomRef() instanceof Polygon) { 
 				typeGeometrie = "POLYGON";
+			} else if (listeResultat.get(1).getGeomRef() instanceof LineString) { 
+				typeGeometrie = "LINESTRING";
 			} else {
 				System.out.println(listeResultat.get(1).getGeomRef().getClass());
 			}
