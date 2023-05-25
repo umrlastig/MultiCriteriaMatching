@@ -23,7 +23,6 @@ import fr.ign.cogit.distance.geom.DistanceAbstractGeom;
 /**
  * 
  * 
- *  @author M-D Van Damme
  */
 public class CritereOrientation extends CritereAbstract implements Critere {
   
@@ -54,14 +53,18 @@ public class CritereOrientation extends CritereAbstract implements Critere {
 		double[] tableau = new double[3];
     
 		if (valeurAngle < seuilAngle) {
+			// System.out.println("1, " + valeurAngle);
 			tableau[0] = -0.5 / seuilAngle * valeurAngle + 0.5;
 			tableau[1] = +0.5 / seuilAngle * valeurAngle;
 			tableau[2] = +0.5;
-		} else {
+		} else { // if (valeurAngle > seuilAngle && valeurAngle <= Math.PI) {
+			// System.out.println("2, " + valeurAngle);
 			tableau[0] = +0.5 / seuilAngle * valeurAngle - 0.5;
 			tableau[1] = -0.5 / seuilAngle * valeurAngle + 1;
 			tableau[2] = +0.5;
-		}
+		} 
+		
+		// System.out.println(Arrays.toString(tableau));
     
     try {
       checkSommeMasseEgale1(tableau);
