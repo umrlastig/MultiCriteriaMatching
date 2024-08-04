@@ -41,16 +41,16 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 
 
 # Using the Java library
-- source code: https://github.com/IGNF/MultiCriteriaMatching
+- source code: https://github.com/umrlastig/MultiCriteriaMatching
 - with *Maven* in a Java project:
 
 To include *MultiCriteriaMatching* in a Maven project, add a dependency block like the following:
 
 ```xml
 <dependency>
-    <groupId>fr.ign.cogit</groupId>
+    <groupId>fr.umr-lastig</groupId>
     <artifactId>MultiCriteriaMatching</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 </dependency>
 ```
 
