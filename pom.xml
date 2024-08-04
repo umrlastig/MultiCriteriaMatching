@@ -204,11 +204,6 @@
                 <enabled>true</enabled>
             </releases>
         </repository>
-        <repository>
-            <id>github</id>
-            <name>GitHub IGNF evidence4j Apache Maven Packages</name>
-            <url>http://maven.pkg.github.com/IGNF/evidence4j</url>
-        </repository>
     </repositories>
 
     <!-- =========================================================== -->

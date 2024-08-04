@@ -41,6 +41,9 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 
 
 # Using the Java library
+
+**! from version ≥ 1.0 Relocated → fr.umr-lastig » MultiCriteriaMatching**
+
 - source code: https://github.com/umrlastig/MultiCriteriaMatching
 - with *Maven* in a Java project:
 
