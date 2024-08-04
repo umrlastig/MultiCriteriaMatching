@@ -27,7 +27,8 @@ Mentionnons que le jeu de données de référence peut être un jeu de données 
 [![CircleCI](https://img.shields.io/circleci/project/github/umrlastig/MultiCriteriaMatching/master.svg?style=flat-square&label=CircleCI)](https://circleci.com/gh/umrlastig/MultiCriteriaMatching)
 [![codecov](https://codecov.io/gh/umrlastig/MultiCriteriaMatching/branch/master/graph/badge.svg?token=pHLaV21j2O)](https://codecov.io/gh/umrlastig/MultiCriteriaMatching)
 [![Software License](https://img.shields.io/badge/Licence-Cecill--C-blue.svg?style=flat)](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
-![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
+[![Maven Central](https://img.shields.io/maven-central/v/fr.umr-lastig/MultiCriteriaMatching.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22fr.umr-lastig%22%20AND%20a:%22MultiCriteriaMatching%22)
+
 
 
 # Development & Contributions
