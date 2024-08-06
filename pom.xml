@@ -9,9 +9,7 @@
     <packaging>jar</packaging>
 
     <name>MultiCriteriaMatching</name>
-    <description>Features matching with Dempster-Shafer Theory as implements in
-        the Evidence4J library.</description>
-
+    <description>MultiCriteriaMatching: an open-source library for multi-criteria data matching based on Belief Theory</description>
     <url>https://github.com/umrlastig/MultiCriteriaMatching</url>
 
     <organization>
