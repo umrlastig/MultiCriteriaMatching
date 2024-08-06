@@ -1,7 +1,7 @@
 # An open source multi-criteria data-matching algorithm based on Belief Theory
 
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
-[![CircleCI](https://img.shields.io/circleci/project/github/umrlastig/MultiCriteriaMatching/master.svg?style=flat-square&label=CircleCI)](https://circleci.com/gh/umrlastig/MultiCriteriaMatching)
+[![MultiCriteriaMatching build & test](https://github.com/umrlastig/MultiCriteriaMatching/actions/workflows/ci.yml/badge.svg)](https://github.com/umrlastig/MultiCriteriaMatching/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/umrlastig/MultiCriteriaMatching/branch/master/graph/badge.svg?token=pHLaV21j2O)](https://codecov.io/gh/umrlastig/MultiCriteriaMatching)
 [![Software License](https://img.shields.io/badge/Licence-Cecill--C-blue.svg?style=flat)](https://github.com/umrlastig/MultiCriteriaMatching/blob/master/Licence-en.html)
 [![Maven Central](https://img.shields.io/maven-central/v/fr.umr-lastig/MultiCriteriaMatching.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22fr.umr-lastig%22%20AND%20a:%22MultiCriteriaMatching%22)
