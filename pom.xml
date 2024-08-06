@@ -5,20 +5,20 @@
 
     <groupId>fr.umr-lastig</groupId>
     <artifactId>MultiCriteriaMatching</artifactId>
-    <version>1.1-SNAPSHOT</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>MultiCriteriaMatching</name>
     <description>Features matching with Dempster-Shafer Theory as implements in
         the Evidence4J library.</description>
-    
+
     <url>https://github.com/umrlastig/MultiCriteriaMatching</url>
-    
+
     <organization>
         <name>LaSTIG</name>
         <url>https://www.umr-lastig.fr/</url>
     </organization>
-    
+
     <licenses>
         <license>
             <name>CeCILL-C</name>
@@ -26,7 +26,7 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-    
+
     <!-- =========================================================== -->
     <!-- Revision control -->
     <!-- =========================================================== -->
@@ -35,7 +35,7 @@
         <connection>scm:git:git://github.com/umrlastig/MultiCriteriaMatching.git</connection>
         <tag>HEAD</tag>
     </scm>
-    
+
     <developers>
         <developer>
             <id>mdvandamme</id>
@@ -64,7 +64,7 @@
             </roles>
         </developer>
     </developers>
-    
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -117,6 +117,7 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
+            
         </plugins>
     </build>
 
@@ -219,7 +220,7 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-    
+
     <!-- =========================================================== -->
     <!-- Ditribution Management -->
     <!-- =========================================================== -->
@@ -235,8 +236,8 @@
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-    
-    
+
+
     <!-- =========================================================== -->
     <!-- Profiles : -->
     <!-- - -->
